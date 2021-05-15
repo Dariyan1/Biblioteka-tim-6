@@ -92,7 +92,7 @@
                                 <i class="far fa-copy mr-[10px] ml-[5px] py-1"></i>
                                 <span class="px-4 py-0">Knjiga</span>
                             </a>
-                            <a href="noviAutor.php" tabindex="0"
+                            <a href="noviAutor" tabindex="0"
                                 class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                 role="menuitem">
                                 <i class="far fa-address-book mr-[10px] ml-[5px] py-1"></i>
@@ -264,7 +264,7 @@
                     <div class="ml-[30px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
                             <div>
-                                <a href="autori.php" aria-label="Knjige">
+                                <a href="autori" aria-label="Knjige">
                                     <i
                                         class="text-[25px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] far fa-address-book"></i>
                                     <div class="hidden sidebar-item">

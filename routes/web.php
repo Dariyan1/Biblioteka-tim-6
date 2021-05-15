@@ -5,6 +5,7 @@ use App\Http\Controllers\PovezController;
 use App\Http\Controllers\PismoController;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\IzdavacController;
+use App\Http\Controllers\AutorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,3 +72,17 @@ Route::get('/deleteIzdavac/{id}', [IzdavacController::class,'delete'] )->name("i
 Route::get('/editIzdavac/{id}', [IzdavacController::class,'edit'])->name("izdavac.edit");
 
 Route::post('/updateIzdavac/{id}', [IzdavacController::class,'update'])->name("izdavac.update");
+////////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('/autori', [AutorController::class,'index'])->name("autor");
+
+Route::get('/noviAutori', [AutorController::class,'create'])->name("autor.create");
+
+Route::post('/autori',[AutorController::class,'store'] )->name("autor.store");
+
+Route::get('/deleteAutori/{id}', [AutorController::class,'delete'] )->name("autor.delete");
+
+Route::get('/editAutori/{id}', [AutorController::class,'edit'])->name("autor.edit");
+
+Route::post('/updateAutori/{id}', [AutorController::class,'update'])->name("autor.update");
+
+Route::get('/desc/{id}', [AutorController::class,'desc'])->name("autor.desc");
