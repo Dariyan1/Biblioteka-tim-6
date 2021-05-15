@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PovezController;
 use App\Http\Controllers\PismoController;
 use App\Http\Controllers\FormatController;
+use App\Http\Controllers\IzdavacController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,3 +59,15 @@ Route::get('/deleteFormat/{id}', [FormatController::class,'delete'] )->name("for
 Route::get('/editFormat/{id}', [FormatController::class,'edit'])->name("format.edit");
 
 Route::post('/updateFormat/{id}', [FormatController::class,'update'])->name("format.update");
+////////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('/settingsIzdavac', [IzdavacController::class,'index'])->name("izdavac");
+
+Route::get('/createIzdavac', [IzdavacController::class,'create'])->name("izdavac.create");
+
+Route::post('/storeIzdavac',[IzdavacController::class,'store'] )->name("izdavac.store");
+
+Route::get('/deleteIzdavac/{id}', [IzdavacController::class,'delete'] )->name("izdavac.delete");
+
+Route::get('/editIzdavac/{id}', [IzdavacController::class,'edit'])->name("izdavac.edit");
+
+Route::post('/updateIzdavac/{id}', [IzdavacController::class,'update'])->name("izdavac.update");
