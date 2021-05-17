@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="settingsPolisa.php" class="inline hover:text-blue-800 active-book-nav">
+                <a href="settingsPolisa" class="inline hover:text-blue-800 active-book-nav">
                     Polisa
                 </a>
                 <a href="settingsKategorije" class="inline ml-[70px] hover:text-blue-800">

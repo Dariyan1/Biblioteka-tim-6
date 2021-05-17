@@ -6,6 +6,7 @@ use App\Http\Controllers\PismoController;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\IzdavacController;
 use App\Http\Controllers\AutorController;
+use App\Http\Controllers\ZanrController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -86,3 +87,15 @@ Route::get('/editAutori/{id}', [AutorController::class,'edit'])->name("autor.edi
 Route::post('/updateAutori/{id}', [AutorController::class,'update'])->name("autor.update");
 
 Route::get('/desc/{id}', [AutorController::class,'desc'])->name("autor.desc");
+////////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('/settingsZanrovi', [ZanrController::class,'index'])->name("Zanr");
+
+Route::get('/createZanrovi', [ZanrController::class,'create'])->name("Zanr.create");
+
+Route::post('/storeZanrovi',[ZanrController::class,'store'] )->name("Zanr.store");
+
+Route::get('/deleteZanrovi/{id}', [ZanrController::class,'delete'] )->name("Zanr.delete");
+
+Route::get('/editZanrovi/{id}', [ZanrController::class,'edit'])->name("Zanr.edit");
+
+Route::post('/updateZanrovi/{id}', [ZanrController::class,'update'])->name("Zanr.update");
