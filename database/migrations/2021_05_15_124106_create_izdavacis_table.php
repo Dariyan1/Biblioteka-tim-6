@@ -13,7 +13,7 @@ class CreateIzdavacisTable extends Migration
      */
     public function up()
     {
-        Schema::create('izdavacs', function (Blueprint $table) {
+        Schema::create('izdavacis', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateIzdavacisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('izdavacs');
+        Schema::dropIfExists('izdavacis');
     }
 }

@@ -8,5 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Povez extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 }

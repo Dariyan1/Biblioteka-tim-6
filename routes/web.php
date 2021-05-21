@@ -7,9 +7,6 @@ use App\Http\Controllers\FormatController;
 use App\Http\Controllers\IzdavacController;
 use App\Http\Controllers\AutorController;
 use App\Http\Controllers\ZanrController;
-use App\Http\Controllers\KategorijeController;
-use App\Http\Controllers\BibliotekariController;
-use App\Http\Controllers\UceniciController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,44 +99,3 @@ Route::get('/deleteZanrovi/{id}', [ZanrController::class,'delete'] )->name("Zanr
 Route::get('/editZanrovi/{id}', [ZanrController::class,'edit'])->name("Zanr.edit");
 
 Route::post('/updateZanrovi/{id}', [ZanrController::class,'update'])->name("Zanr.update");
-////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/settingsKategorije', [KategorijeController::class, 'index'])->name("Kategorije");
-
-Route::get('/novaKategorija', [KategorijeController::class,'create'])->name("kategorija.create");
-
-Route::post('/storeKategorije',[KategorijeController::class,'store'] )->name("kategorije.store");
-
-Route::get('/deleteKategorije/{id}', [KategorijeController::class,'delete'] )->name("kategorije.delete");
-
-Route::get('/editKategorije/{id}', [KategorijeController::class,'edit'])->name("kategorije.edit");
-
-Route::post('/updateKategorije/{id}', [KategorijeController::class,'update'])->name("kategorije.update");
-////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/bibliotekari', [BibliotekariController::class,'index'])->name("bibliotekari");
-
-Route::get('/noviBibliotekari', [BibliotekariController::class,'create'])->name("bibliotekar.create");
-
-Route::post('/bibliotekari',[BibliotekariController::class,'store'] )->name("bibliotekar.store");
-
-Route::get('/deletebiBibliotekari/{id}', [BibliotekariController::class,'delete'] )->name("bibliotekar.delete");
-
-Route::get('/editBibliotekari/{id}', [BibliotekariController::class,'edit'])->name("bibliotekar.edit");
-
-Route::post('/updateBibliotekari/{id}', [BibliotekariController::class,'update'])->name("bibliotekar.update");
-
-Route::get('/descb/{id}', [BibliotekariController::class,'descb'])->name("bibliotekari.desc");
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-Route::get('/ucenici', [UceniciController::class,'index'])->name("ucenici");
-
-Route::get('/noviUcenici', [UceniciController::class,'create'])->name("ucenici.create");
-
-Route::post('/ucenici',[UceniciController::class,'store'] )->name("ucenici.store");
-
-Route::get('/deleteUcenici/{id}', [UceniciController::class,'delete'] )->name("ucenici.delete");
-
-Route::get('/editUcenici/{id}', [UceniciController::class,'edit'])->name("ucenici.edit");
-
-Route::post('/updateUcenici/{id}', [UceniciController::class,'update'])->name("ucenici.update");
-
-Route::get('/descu/{id}', [UceniciController::class,'descu'])->name("ucenicii.desc");

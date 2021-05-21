@@ -8,5 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Pismo extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 }
