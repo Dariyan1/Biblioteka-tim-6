@@ -9,4 +9,10 @@ class Ucenici extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    public function knjiga(){
+        return $this->belongsTo(Knjige::class, 'knjiges');
+    }
+    public function korisnici(){
+        return $this->belongsTo(Korisnici::class, 'korisnicis');
+    }
 }

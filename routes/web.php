@@ -10,6 +10,8 @@ use App\Http\Controllers\ZanrController;
 use App\Http\Controllers\KategorijeController;
 use App\Http\Controllers\BibliotekariController;
 use App\Http\Controllers\UceniciController;
+use App\Http\Controllers\KnjigeController;
+use App\Http\Controllers\KorisniciController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,8 +24,14 @@ use App\Http\Controllers\UceniciController;
 */
 
 Route::get('/', function () {
+    return view('auth.login');
+})->name("login");
+
+Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->name("dashboard");
+
+
 
 Route::get('/settings', function () {
     return view('settings.index');
@@ -115,31 +123,50 @@ Route::get('/editKategorije/{id}', [KategorijeController::class,'edit'])->name("
 
 Route::post('/updateKategorije/{id}', [KategorijeController::class,'update'])->name("kategorije.update");
 ////////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/bibliotekari', [BibliotekariController::class,'index'])->name("bibliotekari");
+Route::get('/bibliotekari', [KorisniciController::class,'index'])->name("bibliotekari");
 
-Route::get('/noviBibliotekari', [BibliotekariController::class,'create'])->name("bibliotekar.create");
+Route::get('/noviBibliotekari', [KorisniciController::class,'create'])->name("bibliotekar.create");
 
-Route::post('/bibliotekari',[BibliotekariController::class,'store'] )->name("bibliotekar.store");
+Route::post('/bibliotekari',[KorisniciController::class,'store'] )->name("bibliotekar.store");
 
-Route::get('/deletebiBibliotekari/{id}', [BibliotekariController::class,'delete'] )->name("bibliotekar.delete");
+Route::get('/deletebiBibliotekari/{id}', [KorisniciController::class,'delete'] )->name("bibliotekar.delete");
 
-Route::get('/editBibliotekari/{id}', [BibliotekariController::class,'edit'])->name("bibliotekar.edit");
+Route::get('/editBibliotekari/{id}', [KorisniciController::class,'edit'])->name("bibliotekar.edit");
 
-Route::post('/updateBibliotekari/{id}', [BibliotekariController::class,'update'])->name("bibliotekar.update");
+Route::post('/updateBibliotekari/{id}', [KorisniciController::class,'update'])->name("bibliotekar.update");
 
-Route::get('/descb/{id}', [BibliotekariController::class,'descb'])->name("bibliotekari.desc");
+Route::get('/descb/{id}', [KorisniciController::class,'descb'])->name("bibliotekari.desc");
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/ucenici', [UceniciController::class,'index'])->name("ucenici");
+Route::get('/ucenici', [KorisniciController::class,'indexu'])->name("ucenici");
 
-Route::get('/noviUcenici', [UceniciController::class,'create'])->name("ucenici.create");
+Route::get('/noviUcenici', [KorisniciController::class,'createu'])->name("ucenici.create");
 
-Route::post('/ucenici',[UceniciController::class,'store'] )->name("ucenici.store");
+Route::post('/ucenici',[KorisniciController::class,'storeu'] )->name("ucenici.store");
 
-Route::get('/deleteUcenici/{id}', [UceniciController::class,'delete'] )->name("ucenici.delete");
+Route::get('/deleteUcenici/{id}', [KorisniciController::class,'deleteu'] )->name("ucenici.delete");
 
-Route::get('/editUcenici/{id}', [UceniciController::class,'edit'])->name("ucenici.edit");
+Route::get('/editUcenici/{id}', [KorisniciController::class,'editu'])->name("ucenici.edit");
 
-Route::post('/updateUcenici/{id}', [UceniciController::class,'update'])->name("ucenici.update");
+Route::post('/updateUcenici/{id}', [KorisniciController::class,'updateu'])->name("ucenici.update");
 
-Route::get('/descu/{id}', [UceniciController::class,'descu'])->name("ucenicii.desc");
+Route::get('/descu/{id}', [KorisniciController::class,'descu'])->name("ucenici.desc");
+///////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('/knjige', [KnjigeController::class,'index'])->name("knjige");
+
+Route::get('/novaKnjiga', [KnjigeController::class,'create'])->name("knjige.create");
+Route::get('/novaKnjigaMultimedija', [KnjigeController::class,'createm'])->name("knjige.createm");
+Route::get('/novaKnjigaSpecifikacija', [KnjigeController::class,'creates'])->name("knjige.creates");
+
+Route::post('/knjige',[KnjigeController::class,'store'] )->name("knjige.store");
+
+Route::get('/deleteKnjige/{id}', [KnjigeController::class,'delete'] )->name("knjige.delete");
+
+Route::get('/editKnjige/{id}', [KnjigeController::class,'edit'])->name("knjige.edit");
+
+Route::post('/updateKnjige/{id}', [KnjigeController::class,'update'])->name("knjige.update");
+
+Route::get('/desck/{id}', [KnjigeController::class,'desck'])->name("knjige.desck");
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

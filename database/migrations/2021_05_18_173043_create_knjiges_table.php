@@ -15,22 +15,32 @@ class CreateKnjigesTable extends Migration
     {
         Schema::create('knjiges', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            
             $table->string('naslov', 256);
-            $table->int('brojStrana');
-            $table->int('pismoId');
-            $table->int('jezikId');
-            $table->int('povezId');
-            $table->int('formatId');
-            $table->int('izdavacId');
+            $table->biginteger('brojStrana');
+          
+            $table->unsignedBigInteger('pismo_id');
+           
+            $table->unsignedBigInteger('jezik_id');
+          
+            $table->unsignedBigInteger('povez_id');
+            
+            $table->unsignedBigInteger('format_id');
+         
+            $table->unsignedBigInteger('izdavac_id');
+            
             $table->date('datumIzdavanja');
             $table->string('ISBN', 20);
-            $table->int('ukupnoPrimjeraka');
-            $table->int('izdatoPrimjeraka');
-            $table->int('rezervisanoPrimjeraka');
+            $table->biginteger('ukupnoPrimjeraka');
+            $table->biginteger('izdatoPrimjeraka');
+            $table->biginteger('rezervisanoPrimjeraka');
             $table->string('sadrzaj', 4128);
 
-
+            $table->foreign('pismo_id')->references('id')->on('pismos')->onDelete('cascade');
+            $table->foreign('jezik_id')->references('id')->on('jeziks')->onDelete('cascade');
+            $table->foreign('povez_id')->references('id')->on('povezs')->onDelete('cascade');
+            $table->foreign('format_id')->references('id')->on('formats')->onDelete('cascade');
+            $table->foreign('izdavac_id')->references('id')->on('izdavacs')->onDelete('cascade');
         });
     }
 

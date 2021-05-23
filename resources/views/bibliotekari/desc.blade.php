@@ -7,7 +7,7 @@
                     <div class="pl-[30px] py-[10px] flex flex-col">
                         <div>
                             <h1>
-                               {{$bibliotekari->imePrezime}}
+                               {{$korisnici->imePrezime}}
                             </h1>
                         </div>
                         <div>
@@ -22,8 +22,8 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="/descb/{{$bibliotekari->id}}" class="text-[#2196f3] hover:text-blue-600">
-                                            ID-{{$bibliotekari->id}}
+                                        <a href="/descb/{{$korisnici->id}}" class="text-[#2196f3] hover:text-blue-600">
+                                            ID-{{$korisnici->id}}
                                         </a>
                                     </li>
                                 </ol>
@@ -35,7 +35,7 @@
                             <i class="fas fa-redo-alt mr-[3px]"></i>
                             Resetuj sifru
                         </a>
-                        <a href="/editBibliotekari/{{$bibliotekari->id}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="/editBibliotekari/{{$korisnici->id}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-edit mr-[3px] "></i>
                             Izmjeni podatke
                         </a>
@@ -67,7 +67,7 @@
                     <div class="mr-[30px]">
                         <div class="mt-[20px]">
                             <span class="text-gray-500">Ime i prezime</span>
-                            <p class="font-medium">{{$bibliotekari->imePrezime}}</p>
+                            <p class="font-medium">{{$korisnici->imePrezime}}</p>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Tip korisnika</span>
@@ -75,16 +75,16 @@
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">JMBG</span>
-                            <p class="font-medium">{{$bibliotekari->JMBG}}</p>
+                            <p class="font-medium">{{$korisnici->JMBG}}</p>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Email</span>
                             <a
-                                class="cursor-pointer block font-medium text-[#2196f3] hover:text-blue-600">{{$bibliotekari->email}}</a>
+                                class="cursor-pointer block font-medium text-[#2196f3] hover:text-blue-600">{{$korisnici->email}}</a>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Korisnicko ime</span>
-                            <p class="font-medium">{{$bibliotekari->korisnickoIme}}</p>
+                            <p class="font-medium">{{$korisnici->korisnickoIme}}</p>
                         </div>
                         <div class="mt-[40px]">
                             <span class="text-gray-500">Broj logovanja</span>

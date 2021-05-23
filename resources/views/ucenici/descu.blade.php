@@ -7,7 +7,7 @@
                     <div class="pl-[30px] py-[10px] flex flex-col">
                         <div>
                             <h1>
-                                {{$ucenici->imePrezime}}
+                                {{$korisnici->imePrezime}}
                             </h1>
                         </div>
                         <div>
@@ -23,7 +23,7 @@
                                     </li>
                                     <li>
                                         <a href="#" class="text-[#2196f3] hover:text-blue-600">
-                                            ID-{{$ucenici->id}}
+                                            ID-{{$korisnici->id}}
                                         </a>
                                     </li>
                                 </ol>
@@ -35,7 +35,7 @@
                             <i class="fas fa-redo-alt mr-[3px]"></i>
                             Resetuj sifru
                         </a>
-                        <a href="/editUcenici/{{$ucenici->id}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
+                        <a href="/editUcenici/{{$korisnici->id}}" class="hover:text-blue-600 inline ml-[20px] pr-[10px]">
                             <i class="fas fa-edit mr-[3px] "></i>
                             Izmjeni podatke
                         </a>
@@ -48,7 +48,7 @@
                             <div class="absolute right-0 w-56 mt-[10px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                 aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                 <div class="py-1">
-                                    <a href="/deleteUcenici/{{$ucenici->id}}" tabindex="0"
+                                    <a href="/deleteUcenici/{{$korisnici->id}}" tabindex="0"
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
@@ -75,7 +75,7 @@
                         <div class="mr-[30px]">
                             <div class="mt-[20px]">
                                 <span class="text-gray-500">Ime i prezime</span>
-                                <p class="font-medium">{{$ucenici->imePrezime}}</p>
+                                <p class="font-medium">{{$korisnici->imePrezime}}</p>
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Tip korisnika</span>
@@ -83,15 +83,15 @@
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">JMBG</span>
-                                <p class="font-medium">{{$ucenici->JMBG}}</p>
+                                <p class="font-medium">{{$korisnici->JMBG}}</p>
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Email</span>
-                                <a href="#" class="block font-medium text-[#2196f3]">{{$ucenici->email}}</a>
+                                <a href="#" class="block font-medium text-[#2196f3]">{{$korisnici->email}}</a>
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Korisnicko ime</span>
-                                <p class="font-medium">{{$ucenici->korisnickoIme}}</p>
+                                <p class="font-medium">{{$korisnici->korisnickoIme}}</p>
                             </div>
                             <div class="mt-[40px]">
                                 <span class="text-gray-500">Broj logovanja</span>

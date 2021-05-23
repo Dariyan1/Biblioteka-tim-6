@@ -52,7 +52,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                        @foreach ($bibliotekari as $b)
+                        @foreach ($korisnici as $b)
                             <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">

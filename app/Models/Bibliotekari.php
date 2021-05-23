@@ -9,4 +9,8 @@ class Bibliotekari extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    public function korisnici(){
+        return $this->belongsTo(Korisnici::class, 'korisnicis');
+    }
 }
+

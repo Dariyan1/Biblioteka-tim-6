@@ -9,4 +9,7 @@ class Povez extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    public function knjiga(){
+        return $this->hasMany(Knjige::class, 'knjiges');
+    }
 }

@@ -15,7 +15,8 @@ class CreateIzdavacisTable extends Migration
     {
         Schema::create('izdavacs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('naziv');
+
         });
     }
 
