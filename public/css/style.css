@@ -1,3 +1,20 @@
+/*nas css*/
+
+div.aktivni{
+  display:block;
+  }
+  div.neaktivni{
+  display:none;
+  }
+  a.aktivni{
+  color:red;
+  }
+  a.neaktivni{
+  color:green;
+  }
+  
+  
+  /*kraj naseg css-a*/
 /*Font Rubik - import*/
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 

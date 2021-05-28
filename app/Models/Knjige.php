@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Knjige extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     public function autor(){
         return $this->hasMany(Autor::class, 'autor_knjiga');
     }
@@ -33,7 +34,7 @@ public function pismo(){
 
 }
 public function izdavac(){
-    return $this->hasOne(Izdavac::class, 'izdavacis');
+    return $this->hasOne(Izdavac::class, 'izdavacs');
 
 }
 }

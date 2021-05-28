@@ -17,7 +17,8 @@ class KnjigeController extends Controller
         return view('knjige.index', ['knjige'=>$knjige]);
     }
     public function create(){
-        return view('knjige.create');
+        $knjige=Knjige::all();
+        return view('knjige.create', ['knjige'=>$knjige]);
     }
     public function creates(){
         return view('knjige.creates');
@@ -93,4 +94,5 @@ class KnjigeController extends Controller
             $knjige = Knjige::find($id);
             return view('knjige.desck', compact('knjige'));
         }
+       
 }

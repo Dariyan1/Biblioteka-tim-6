@@ -7,14 +7,14 @@
                     <div class="pl-[30px] py-[10px] flex flex-col">
                         <div>
                             <h1>
-                                Nova knjiga
+                                Izmijeni podatke
                             </h1>
                         </div>
                         <div>
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                     <li>
-                                        <a href="evidencijaKnjiga" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="evidencijaKnjiga.php" class="text-[#2196f3] hover:text-blue-600">
                                             Evidencija knjiga
                                         </a>
                                     </li>
@@ -22,8 +22,8 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="#" class="text-[#2196f3] hover:text-blue-600">
-                                            Nova knjiga
+                                        <a href="#" class="text-gray-400 hover:text-blue-600">
+                                            Izmijeni podatke
                                         </a>
                                     </li>
                                 </ol>
@@ -33,52 +33,53 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="#" class="inline active-book-nav hover:text-blue-800">
+                <a id="tab1" href="#" class="moja inline active-book-nav hover:text-blue-800">
                     Osnovni detalji
                 </a>
-                <a href="novaKnjigaSpecifikacija" class="inline ml-[70px] hover:text-blue-800 ">
+                <a id="tab2" href="#" class="moja inline ml-[70px] hover:text-blue-800 ">
                     Specifikacija
                 </a>
-                <a href="novaKnjigaMultimedija" class="inline ml-[70px] hover:text-blue-800">
+                <a id="tab3" href="#" class="moja inline ml-[70px] hover:text-blue-800">
                     Multimedija
                 </a>
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
                 <form class="text-gray-700 forma">
+                <div id="tab1s" class="aktivni sadrzaj">
                     <div class="flex flex-row ml-[30px] mb-[150px]">
                         <div class="w-[50%]">
                             <div class="mt-[20px]">
                                 <p>Naziv knjige <span class="text-red-500">*</span></p>
-                                <input type="text" name="naslov" id="nazivKnjiga"
+                                <input type="text" name="nazivKnjigaEdit" id="nazivKnjigaEdit" value=""
                                     class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                                    onkeydown="clearErrorsNazivKnjiga()" />
-                                <div id="validateNazivKnjiga"></div>
+                                    onkeydown="clearErrorsNazivKnjigaEdit()" />
+                                <div id="validateNazivKnjigaEdit"></div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <p class="inline-block mb-2">Kratki sadrzaj</p>
-                                <textarea name="kratki_sadrzaj"
+                                <textarea name="kratki_sadrzaj_edit"
                                     class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]">
-
+ 
                                 </textarea>
                             </div>
 
                             <div class="mt-[20px]">
                                 <p>Izaberite kategorije <span class="text-red-500">*</span></p>
-                                <select x-cloak id="kategorija">
-                                    <option value="1"></option>
-                                    
+                                <select x-cloak id="kategorijaEdit">
+                                    <option value="1">Udzbenici</option>
+                                    <option value="2">Romani</option>
                                 </select>
 
-                                <div x-data="dropdown()" x-init="loadOptions()" class="flex flex-col w-[90%]">
-                                    <input name="values" id="kategorijaInput" type="hidden"
-                                        x-bind:value="selectedValues()">
+                                <div x-data="dropdown()" x-init="loadOptionsEdit()" class="flex flex-col w-[90%]">
+                                    <input name="values" id="kategorijaInputEdit" type="hidden"
+                                        x-bind:value="selectedValuesKategorijaEdit()">
                                     <div class="relative inline-block w-[100%]">
                                         <div class="relative flex flex-col items-center">
                                             <div x-on:click="open" class="w-full svelte-1l8159u">
                                                 <div class="flex p-1 my-2 bg-white border border-gray-300 shadow-sm svelte-1l8159u focus-within:ring-2 focus-within:ring-[#576cdf]"
-                                                    onclick="clearErrorsKategorija()">
+                                                    onclick="clearErrorsKategorijaEdit()">
                                                     <div class="flex flex-wrap flex-auto">
                                                         <template x-for="(option,index) in selected"
                                                             :key="options[option].value">
@@ -104,7 +105,7 @@
                                                     <div x-show="selected.length    == 0" class="flex-1">
                                                         <input
                                                             class="w-full h-full p-1 px-2 text-gray-800 bg-transparent outline-none appearance-none"
-                                                            x-bind:value="selectedValues()">
+                                                            x-bind:value="selectedValuesKategorijaEdit()">
                                                     </div>
                                                 </div>
                                                 <div
@@ -155,23 +156,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="validateKategorija"></div>
+                            <div id="validateKategorijaEdit"></div>
                         </div>
 
                         <div class="mt-[20px]">
                             <p>Izaberite zanrove <span class="text-red-500">*</span></p>
-                            <select x-cloak id="zanr">
+                            <select x-cloak id="zanrEdit">
                                 <option value="1">Poezija</option>
                                 <option value="2">Strucna literatura</option>
+                                <option value="2">Knjige za djecu</option>
                             </select>
 
-                            <div x-data="dropdown()" x-init="loadOptionsZanrovi()" class="flex flex-col w-[90%]">
-                                <input name="values" id="zanroviInput" type="hidden" x-bind:value="selectedValues()">
+                            <div x-data="dropdown()" x-init="loadOptionsZanroviEdit()" class="flex flex-col w-[90%]">
+                                <input name="values" id="zanroviInputEdit" type="hidden" x-bind:value="selectedValuesZanrEdit()">
                                 <div class="relative inline-block w-[100%]">
                                     <div class="relative flex flex-col items-center">
                                         <div x-on:click="open" class="w-full svelte-1l8159u">
                                             <div class="flex p-1 my-2 bg-white border border-gray-300 shadow-sm svelte-1l8159u focus-within:ring-2 focus-within:ring-[#576cdf]"
-                                                onclick="clearErrorsZanr()">
+                                                onclick="clearErrorsZanrEdit()">
                                                 <div class="flex flex-wrap flex-auto">
                                                     <template x-for="(option,index) in selected"
                                                         :key="options[option].value">
@@ -197,7 +199,7 @@
                                                 <div x-show="selected.length    == 0" class="flex-1">
                                                     <input
                                                         class="w-full h-full p-1 px-2 text-gray-800 bg-transparent outline-none appearance-none"
-                                                        x-bind:value="selectedValues()">
+                                                        x-bind:value="selectedValuesZanrEdit()">
                                                 </div>
                                             </div>
                                             <div
@@ -248,25 +250,26 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="validateZanr"></div>
+                        <div id="validateZanrEdit"></div>
                     </div>
-            </div>
+                    </div>
+
 
             <div class="w-[50%]">
                 <div class="mt-[20px]">
                     <p>Izaberite autore <span class="text-red-500">*</span></p>
-                    <select x-cloak id="autori">
+                    <select x-cloak id="autoriEdit">
                         <option value="1">Mark Twain</option>
                         <option value="2">Pero Peric</option>
                     </select>
 
-                    <div x-data="dropdown()" x-init="loadOptionsAutori()" class="flex flex-col w-[90%]">
-                        <input name="values" id="autoriInput" type="hidden" x-bind:value="selectedValues()">
+                    <div x-data="dropdown()" x-init="loadOptionsAutoriEdit()" class="flex flex-col w-[90%]">
+                        <input name="autori" id="autoriInputEdit" type="hidden" x-bind:value="selectedValuesAutoriEdit()">
                         <div class="relative inline-block w-[100%]">
                             <div class="relative flex flex-col items-center">
                                 <div x-on:click="open" class="w-full svelte-1l8159u">
                                     <div class="flex p-1 my-2 bg-white border border-gray-300 shadow-sm svelte-1l8159u focus-within:ring-2 focus-within:ring-[#576cdf]"
-                                        onclick="clearErrorsAutori()">
+                                        onclick="clearErrorsAutoriEdit()">
                                         <div class="flex flex-wrap flex-auto">
                                             <template x-for="(option,index) in selected" :key="options[option].value">
                                                 <div
@@ -291,7 +294,7 @@
                                         <div x-show="selected.length    == 0" class="flex-1">
                                             <input
                                                 class="w-full h-full p-1 px-2 text-gray-800 bg-transparent outline-none appearance-none"
-                                                x-bind:value="selectedValues()">
+                                                x-bind:value="selectedValuesAutoriEdit()">
                                         </div>
                                     </div>
                                     <div class="flex items-center w-8 py-1 pl-2 pr-1 text-gray-300 svelte-1l8159u">
@@ -341,46 +344,246 @@
                         </div>
                     </div>
                 </div>
-                <div id="validateAutori"></div>
+                <div id="validateAutoriEdit"></div>
             </div>
-@foreach($izdavac as $izdavac)
+
             <div class="mt-[20px]">
                 <p>Izdavac <span class="text-red-500">*</span></p>
                 <select
                     class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                    name="izdavac" id="izdavac" onclick="clearErrorsIzdavac()">
-                    <option disabled selected></option>
-                    <option value="{{$izdavac->naziv}}">
-                        
+                    name="izdavacEdit" id="izdavacEdit" onclick="clearErrorsIzdavacEdit()">
+                    <option disabled></option>
+                    <option value="">
+                        Izdavac 1
                     </option>
-                    @endforeach
+                    <option selected value="">
+            
+                    </option>
                 </select>
-                <div id="validateIzdavac"></div>
+                <div id="validateIzdavacEdit"></div>
             </div>
 
             <div class="mt-[20px]">
                 <p>Godina izdavanja <span class="text-red-500">*</span></p>
                 <select
                     class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                    name="godinaIzdavanja" id="godinaIzdavanja" onclick="clearErrorsGodinaIzdavanja()">
-                    <option disabled selected></option>
+                    name="godinaIzdavanjaEdit" id="godinaIzdavanjaEdit" onclick="clearErrorsGodinaIzdavanjaEdit()">
+                    <option disabled></option>
                     <option value="">
                         Godina izdavanja 1
                     </option>
+                    <option selected value="">
+                        
+                    </option>
                 </select>
-                <div id="validateGodinaIzdavanja"></div>
+                <div id="validateGodinaIzdavanjaEdit"></div>
             </div>
 
             <div class="mt-[20px]">
                 <p>Kolicina <span class="text-red-500">*</span></p>
-                <input type="text" name="knjigaKolicina" id="knjigaKolicina"
+                <input type="text" name="knjigaKolicinaEdit" id="knjigaKolicinaEdit" value=""
                     class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]"
-                    onkeydown="clearErrorsKnjigaKolicina()" />
-                <div id="validateKnjigaKolicina"></div>
+                    onkeydown="clearErrorsKnjigaKolicinaEdit()" />
+                <div id="validateKnjigaKolicinaEdit"></div>
             </div>
             </div>
             </div>
+            </div>
+            <!-- tab2 tab2 tab2 tab2 tab2 tab2 tab2 tab2 -->
+            <div id="tab2s" class="neaktivni sadrzaj">
+            <div class="flex flex-row ml-[30px]">
+                        <div class="w-[50%] mb-[150px]">
+                            <div class="mt-[20px]">
+                                <p>Broj strana <span class="text-red-500">*</span></p>
+                                <input type="text" name="brStranaEdit" id="brStranaEdit" value="" class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsBrStranaEdit()"/>
+                                <div id="validateBrStranaEdit"></div>
+                            </div>
 
+                            <div class="mt-[20px]">
+                                <p>Jezik <span class="text-red-500">*</span></p>
+                                <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="pismoEdit" id="pismoEdit" onclick="clearErrorsPismoEdit()">
+                                    <option disabled></option>
+                                    <option selected value="">
+                                        
+                                    </option>
+                                    <option value="">
+                                        Engleski
+                                    </option>
+                                    <option value="">
+                                        Arapski
+                                    </option>
+                                    <option value="">
+                                        Kineski
+                                    </option>
+                                </select>
+                                <div id="validatePismoEdit"></div>
+                            </div>
+                            <div class="mt-[20px]">
+                                <p>Pismo <span class="text-red-500">*</span></p>
+                                <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="pismoEdit" id="pismoEdit" onclick="clearErrorsPismoEdit()">
+                                    <option disabled></option>
+                                    <option selected value="">
+                                        
+                                    </option>
+                                    <option value="">
+                                        Latinica
+                                    </option>
+                                    <option value="">
+                                        Arapsko
+                                    </option>
+                                    <option value="">
+                                        Kinesko
+                                    </option>
+                                </select>
+                                <div id="validatePismoEdit"></div>
+                            </div>
+
+                            <div class="mt-[20px]">
+                                <p>Povez <span class="text-red-500">*</span></p>
+                                <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="povezEdit" id="povezEdit" onclick="clearErrorsPovezEdit()">
+                                    <option disabled></option>
+                                    <option selected value="">
+                                        
+                                    </option>
+                                    <option value="">
+                                        Meki
+                                    </option>
+                                </select>
+                                <div id="validatePovezEdit"></div>
+                            </div>
+
+                            <div class="mt-[20px]">
+                                <p>Format <span class="text-red-500">*</span></p>
+                                <select class="flex w-[45%] mt-2 px-2 py-2 border bg-white border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="formatEdit" id="formatEdit" onclick="clearErrorsFormatEdit()">
+                                    <option disabled></option>
+                                    <option value="">
+                                        A1
+                                    </option>
+                                    <option value="">
+                                        A2
+                                    </option>
+                                    <option selected value="">
+                                        
+                                    </option>
+                                </select>
+                                <div id="validateFormatEdit"></div>
+                            </div>
+
+                            <div class="mt-[20px]">
+                                <p>International Standard Book Num <span class="text-red-500">*</span></p>
+                                <input type="text" name="isbnEdit" id="isbnEdit" value="" class="flex w-[45%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsIsbnEdit()"/>
+                                <div id="validateIsbnEdit"></div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <!-- tab3 tab3 tab3 tab3 tab3 tab3 tab3 -->
+            <div id="tab3s" class="neaktivni sadrzaj">
+            <div class="w-9/12 mx-auto bg-white rounded p7 mt-[40px] mb-[150px]">
+                    <div x-data="dataFileDnD()"
+                                            class="relative flex flex-col p-4 text-gray-400 border border-gray-200 rounded">
+                                            <div x-ref="dnd"
+                                                class="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer">
+                                                <input accept="*" type="file" multiple
+                                                    class="absolute inset-0 z-50 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
+                                                    @change="addFiles($event)"
+                                                    @dragover="$refs.dnd.classList.add('border-blue-400'); $refs.dnd.classList.add('ring-4'); $refs.dnd.classList.add('ring-inset');"
+                                                    @dragleave="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
+                                                    @drop="$refs.dnd.classList.remove('border-blue-400'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset');"
+                                                    title="" />
+
+                                                <div
+                                                    class="flex flex-col items-center justify-center py-10 text-center">
+                                                    <svg class="w-6 h-6 mr-1 text-current-50"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                    </svg>
+                                                    <p class="m-0">Drag your files here or click in this area.</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- <template x-if="files.length > 0"> -->
+                                            <div class="grid grid-cols-3 gap-4 mt-4 2xl:grid-cols-4"
+                                                @drop.prevent="drop($event)"
+                                                @dragover.prevent="$event.dataTransfer.dropEffect = 'move'">
+
+                                                <template x-for="(_, index) in Array.from({ length: files.length })">
+                                                    <div class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
+                                                        style="padding-top: 100%;" @dragstart="dragstart($event)"
+                                                        @dragend="fileDragging = null"
+                                                        :class="{'border-blue-600': fileDragging == index}"
+                                                        draggable="true" :data-index="index">
+                                                        <!-- Checkbox -->
+                                                        <input
+                                                            class="absolute top-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
+                                                            type="radio" name="chosen_image" />
+                                                        <!-- End checkbox -->
+                                                        <button
+                                                            class="absolute bottom-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
+                                                            type="button" @click="remove(index)">
+                                                            <svg class="w-[25px] h-[25px] text-gray-700"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                nviewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                            </svg>
+                                                        </button>
+                                                        <template x-if="files[index].type.includes('audio/')">
+                                                            <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                                                            </svg>
+                                                        </template>
+                                                        <template
+                                                            x-if="files[index].type.includes('application/') || files[index].type === ''">
+                                                            <svg class="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                                            </svg>
+                                                        </template>
+                                                        <template x-if="files[index].type.includes('image/')">
+                                                            <img class="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview"
+                                                                x-bind:src="loadFile(files[index])" />
+                                                        </template>
+                                                        <template x-if="files[index].type.includes('video/')">
+                                                            <video
+                                                                class="absolute inset-0 object-cover w-full h-full border-4 border-white pointer-events-none preview">
+                                                                <fileDragging x-bind:src="loadFile(files[index])"
+                                                                    type="video/mp4">
+                                                            </video>
+                                                        </template>
+
+                                                        <div
+                                                            class="absolute bottom-0 left-0 right-0 flex flex-col p-2 text-xs bg-white bg-opacity-50">
+                                                            <span class="w-full font-bold text-gray-900 truncate"
+                                                                x-text="files[index].name">Loading</span>
+                                                            <span class="text-xs text-gray-900"
+                                                                x-text="humanFileSize(files[index].size)">...</span>
+                                                        </div>
+
+                                                        <div class="absolute inset-0 z-40 transition-colors duration-300"
+                                                            @dragenter="dragenter($event)"
+                                                            @dragleave="fileDropping = null"
+                                                            :class="{'bg-blue-200 bg-opacity-80': fileDropping == index && fileDragging != index}">
+                                                        </div>
+
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            <!-- </template> -->
+                                        </div>
+                    </div>
+            </div>
             <div class="absolute bottom-0 w-full">
                 <div class="flex flex-row">
                     <div class="inline-block w-full text-white text-right py-[7px] mr-[100px]">

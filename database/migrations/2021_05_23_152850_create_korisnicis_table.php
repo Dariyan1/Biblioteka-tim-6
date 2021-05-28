@@ -29,13 +29,15 @@ class CreateKorisnicisTable extends Migration
             
         });
     }
+    
 
     /**
      * Reverse the migrations.
      *
      * @return void
      */
-    public function down(){
+    public function down()
+    {
         Schema::dropIfExists('korisnicis');
     }
 

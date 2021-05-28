@@ -1,5 +1,18 @@
 //open and close hamburger menu
 $(function () {
+
+  // nas js  
+  $("a.moja").click(function(){
+    var t=$(this).attr('id');
+    $("a.moja").removeClass("active-book-nav").addClass(" hover:text-blue-800 ");
+    $(this).removeClass(" hover:text-blue-800 ").addClass("active-book-nav");
+    $("div.sadrzaj").hide();
+    $("#"+t+"s").fadeIn();
+    });
+  
+
+
+  //kraj naseg js
   var hamburger = $('#hamburger');
   var sidebar = $('.sidebar');
 

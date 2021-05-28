@@ -120,5 +120,5 @@
                     
                 </form>
             </div>
-        </section>
-@endsection
+        </section>     
+        @endsection
