@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Povez extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    protected $table='povezs';
+    protected $guarded=[];
     public function knjiga(){
-        return $this->hasMany(Knjige::class, 'knjiges');
+        return $this->hasMany(Knjiga::class);
     }
 }

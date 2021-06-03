@@ -10,9 +10,41 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="kname" class="col-md-4 col-form-label text-md-right">{{ __('Korisnicko ime') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="kname" type="text" class="form-control @error('kname') is-invalid @enderror" name="kname" value="{{ old('kname') }}" required autocomplete="kname" autofocus>
+
+                                @error('kname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="tk" class="col-md-4 col-form-label text-md-right">{{ __('Tip korisnika') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="name" class="form-control @error('tk') is-invalid @enderror" name="tk"  required autocomplete="tk" autofocus>
+                                <option value="">----</option>
+                                <option value="1">Bibliotekar</option>
+                                <option value="2">Ucenik</option>
+                                </select>
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+
+                        <!-------------------iznad sam ja dodao------------------------>
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Ime i prezime') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>

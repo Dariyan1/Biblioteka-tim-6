@@ -1,3 +1,6 @@
+/*Font Rubik - import*/
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
 /*nas css*/
 
 div.aktivni{
@@ -15,9 +18,26 @@ div.aktivni{
   
   
   /*kraj naseg css-a*/
-/*Font Rubik - import*/
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
-
+div.inactive{
+  display:none !important;
+}
+a.active{
+  padding-bottom:15px;
+  border-bottom:2px solid skyblue !important;
+}
+.mssg{
+  background-color:#34d399 !important;
+}
+.success{
+  background-color:#34d399 !important;
+}
+.fail{
+  background-color:#ef4444 !important;
+}
+div.fail{
+  color:white !important;
+  background-color:#ef4444 !important;
+}
 .logo-font {
   font-family: 'Rubik';
 }
@@ -227,6 +247,9 @@ input:checked+svg {
 /* Multiple select dropdown - new book */
 [x-cloak] {
   display: none;
+}
+[selected="selected"]{
+  background-color:red !important;
 }
 
 /*Animations*/
@@ -2695,24 +2718,4 @@ h4 {
   .\32xl\:grid-cols-4{
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-}
-
-div.success{
-    background-color: #34d399 !important;
-    color: white !important;
-}
-
-div.fail{
-    background-color: red !important;
-    color:white !important;
-}
-
-.success{
-    background-color: #34d399 !important;
-    color: white !important;
-}
-
-.fail{
-    background-color: red !important;
-    color:white !important;
 }

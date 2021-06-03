@@ -1,9 +1,7 @@
 @extends('layouts.layout')
-
 @section('content')
-
-<!-- Content -->
-<section class="w-screen h-screen pl-[80px] py-4 text-gray-700">
+     <!-- Content -->
+     <section class="w-screen h-screen pl-[80px] py-4 text-gray-700">
             <!-- Heading of content -->
             <div class="heading mt-[7px]">
                 <h1 class="pl-[30px] pb-[21px]  border-b-[1px] border-[#e4dfdf] ">
@@ -499,5 +497,4 @@
             </div>
         </section>
         <!-- End Content -->
-
 @endsection

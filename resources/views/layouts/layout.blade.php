@@ -13,27 +13,27 @@
     <!-- End Meta -->
 
     <!-- Title -->
-    <title>Dashboard | Library - ICT Cortex student project</title>
-    <link rel="shortcut icon" href="img/library-favicon.ico" type="image/vnd.microsoft.icon" />
+    <title>Edit book bind | Specification | Library - ICT Cortex student project</title>
+    <link rel="shortcut icon" href="/img/library-favicon.ico" type="image/vnd.microsoft.icon" />
     <!-- End Title -->
 
-
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+   
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />    <!-- End Styles -->
 </head>
 
-<body class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
+<body class="overflow-hidden small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
     <header
     class="z-20 small:hidden  flex items-center text-white justify-between w-full h-[71px] pr-[30px] mx-auto bg-[#4558BE]">
     <!-- logo -->
     <div class="logo-font inline-flex bg-[#3F51B5] py-[18px] px-[30px]">
-        <a class="_o6689fn" href="#">
+        <a class="_o6689fn" href="{{route('dashboard')}}">
             <div class="block">
-                <a href="/dashboard" class="text-[20px] font-medium">
+                <a href="{{route('dashboard')}}" class="text-[20px] font-medium">
                     <div class="flex">
-                        <img src='./img/logo.svg' alt="" width="35px" height="35px">
+                        <img src='/img/logo.svg' alt="" width="35px" height="35px">
                         <p class="text-[20px] mt-[5px]">&nbsp;&nbsp;Online Biblioteka</p>
                     </div>
 
@@ -92,7 +92,7 @@
                                 <i class="far fa-copy mr-[10px] ml-[5px] py-1"></i>
                                 <span class="px-4 py-0">Knjiga</span>
                             </a>
-                            <a href="noviAutor" tabindex="0"
+                            <a href="noviAutor.php" tabindex="0"
                                 class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                 role="menuitem">
                                 <i class="far fa-address-book mr-[10px] ml-[5px] py-1"></i>
@@ -144,7 +144,7 @@
                         aria-label="User profile">
                         <div class="flex items-center h-5">
                             <div class="w-[40px] h-[40px] mt-[15px]">
-                                <img class="rounded-full" src="img/profileExample.jpg" alt="">
+                                <img class="rounded-full" src="/img/profileImg-default.jpg" alt="">
                             </div>
                         </div>
                     </a>
@@ -160,13 +160,18 @@
                                 <i class="fas fa-file mr-[8px] ml-[5px] py-1"></i>
                                 <span class="px-4 py-0">Profile</span>
                             </a>
-                            <a href="#" tabindex="0"
-                                class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                role="menuitem">
+                            <a class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600" href="#"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
                                 <i class="fas fa-sign-out-alt mr-[5px] ml-[5px] py-1"></i>
                                 <span class="px-4 py-0">Logout</span>
                             </a>
+
+                            <form id="logout-form" action="#" method="POST" class="d-none">
+                                @csrf
+                            </form>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -193,7 +198,7 @@
                     <div class="ml-[25px]">
                         <span class="flex justify-between w-full fill-current whitespace-nowrap">
                             <div class="transition duration-300 ease-in group-hover:text-[#576cdf]">
-                                <a href="/dashboard" aria-label="Dashboard">
+                                <a href="{{ route('dashboard') }}" aria-label="Dashboard">
                                     <i
                                         class="text-white bg-[#3F51B5] px-[5px] pt-[4px] pb-[5px] fas fa-tachometer-alt text-[19px] rounded-[3px]"></i>
                                     <div class="hidden sidebar-item">
@@ -209,7 +214,7 @@
                     <div class="ml-[30px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
                             <div>
-                                <a href="/bibliotekari" aria-label="Bibliotekari">
+                                <a href="{{route('bibliotekar.index')}}" aria-label="Bibliotekari">
                                     <i
                                         class="text-[25px] text-[#707070] far fa-address-book transition duration-300 ease-in group-hover:text-[#576cdf]"></i>
                                     <div class="hidden sidebar-item">
@@ -228,7 +233,7 @@
                     <div class="ml-[30px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
                             <div>
-                                <a href="/ucenici" aria-label="Ucenici">
+                                <a href="{{route('ucenik.index')}}" aria-label="Ucenici">
                                     <i
                                         class="text-[18px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] fas fa-users"></i>
                                     <div class="hidden sidebar-item">
@@ -246,7 +251,7 @@
                     <div class="ml-[30px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
                             <div>
-                                <a href="/knjige" aria-label="Knjige">
+                                <a href="{{route('knjiga.index')}}" aria-label="Knjige">
                                     <i
                                         class="text-[25px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] far fa-copy"></i>
                                     <div class="hidden sidebar-item">
@@ -264,7 +269,7 @@
                     <div class="ml-[30px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
                             <div>
-                                <a href="/autori" aria-label="Autori">
+                                <a href="{{route('autor.index')}}" aria-label="Knjige">
                                     <i
                                         class="text-[25px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] far fa-address-book"></i>
                                     <div class="hidden sidebar-item">
@@ -355,7 +360,7 @@
     </div>
     <div class="sidebar-nav py-[10px] border-t-[1px] border-[#e4dfdf] pt-[23px] pb-[29px]  group hover:bg-[#EFF3F6]">
         <!-- Settings Icon -->
-        <a href="/settings" aria-label="Settngs" class="ml-[30px]">
+        <a href="{{route('polisa.create')}}" aria-label="Settngs" class="ml-[30px]">
             <span class="whitespace-nowrap">
                 <i
                     class="transition duration-300 ease-in group-hover:text-[#576cdf] text-[22px] text-[#707070] fas fa-cog"></i>
@@ -368,14 +373,12 @@
     </div>
 </nav>        <!-- End Sidebar -->
 
-
-
-
+        <!-- Content -->
 
 @yield('content')
 
-
-</main>
+         <!-- End Content -->
+ </main>
     <!-- End Main content -->
 
     <!-- Notification for small devices -->
@@ -390,14 +393,20 @@
 </div>
 
     <!-- Scripts -->
-    <script src="js/jquery.min.js " defer=""></script>
-<script src="js/app.js " defer=""></script>
-<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js%22%3E</script>
+    <script src="/js/jquery.min.js " defer=""></script>
+<script src="/js/app.js " defer=""></script>
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
 <!-- File upload -->
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-<script src="https://unpkg.com/create-file-list%22%3E</script>    <!-- End Scripts -->
+<script src="https://unpkg.com/create-file-list"></script>    <!-- End Scripts -->
 
+   <script>
+    CKEDITOR.replace('kratki_sadrzaj', {
+        width: "90%",
+        height: "150px"
+    });
+    </script>
 </body>
 
 </html>

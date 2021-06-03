@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Izdavac extends Model
 {
     use HasFactory;
-    public $timestamps = false;
+    protected $fillable=['Naziv'];
+    protected $hidden=['id'];
+    protected $table='izdavacs';
     public function knjiga(){
-        return $this->hasMany(Knjige::class, 'knjiges');
+        return $this->hasMany(Knjiga::class);
     }
 }

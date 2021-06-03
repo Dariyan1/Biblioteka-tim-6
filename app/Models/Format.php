@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Format extends Model
 {
+    protected $table='formats';
+    protected $guarded=[];
     use HasFactory;
-    public $timestamps = false;
     public function knjiga(){
-        return $this->hasMany(Knjige::class, 'knjiges');
+        return $this->hasMany(Knjiga::class);
     }
 }

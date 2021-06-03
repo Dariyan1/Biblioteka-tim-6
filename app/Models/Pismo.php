@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Pismo extends Model
 {
     use HasFactory;
-    public $timestamps = false;
-    public function knjiga(){
-        return $this->hasMany(Knjige::class, 'knjiges');
+    protected $guarded=[];
+     public function knjiga(){
+        return $this->hasMany(Knjiga::class);
     }
 }

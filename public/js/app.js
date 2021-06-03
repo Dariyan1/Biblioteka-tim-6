@@ -1,6 +1,17 @@
+$('div.container').hide();
+$('div#tab2c').show();
+$('a.moj').click(function(){
+  var t = $(this).attr('id');
+  if($(this).hasClass('inactive')){ //this is the start of our condition 
+    $('a.moj').addClass('inactive').removeClass('active-book-nav');           
+    $(this).removeClass('inactive').addClass('active-book-nav');
+    $('.container').hide();
+    $('#'+t+'c').fadeIn('slow');
+ }
+});
 //open and close hamburger menu
 $(function () {
-
+  
   // nas js  
   $("a.moja").click(function(){
     var t=$(this).attr('id');
@@ -9,8 +20,6 @@ $(function () {
     $("div.sadrzaj").hide();
     $("#"+t+"s").fadeIn();
     });
-  
-
 
   //kraj naseg js
   var hamburger = $('#hamburger');
@@ -77,27 +86,26 @@ $(function () {
 
 $(document).ready(function () {
   //this will execute on page load(to be more specific when document ready event occurs)
-  if ($('.activity-card').length > 6) {
-    $('.activity-card:gt(6)').hide();
-    $('.activity-showMore').show();
-    $(this).text('Show more');
-  }
+  size = $('.activity-card').length;
+  x = 10;
+  $('.activity-card:lt(' + x + ')').removeClass('hidden');
+  $('.activity-card:lt(' + x + ')').addClass('flex');
+  $('.activity-showMore').show();
+
 
   $('.activity-showMore').on('click', function () {
-    //toggle elements with class .ty-compact-list that their index is bigger than 2
-    $('.activity-card:gt(6)').toggle();
-    //change text of show more element just for demonstration purposes to this demo
-    if ($(this).text() == 'Show less') {
-      $(this).text('Show more')
-    } else {
-      $(this).text('Show less');
+    x = (x + 10 < size) ? x + 10 : size;
+    $('.activity-card:lt(' + x + ')').removeClass('hidden');
+    $('.activity-card:lt(' + x + ')').addClass('flex');
+    if (x == size) {
+      $('.activity-showMore').hide();
     }
   });
 
   // Form
-  $(".forma").submit(function (e) {
-    // e.preventDefault();
-  });
+  /*$(".forma").submit(function (e) {
+    e.preventDefault();
+  });*/
 
   // Open Modal
   modal = $(".modal");
@@ -231,7 +239,7 @@ function dataFileDnD() {
     addFiles(e) {
       const files = createFileList([...this.files], [...e.target.files]);
       this.files = files;
-      this.form.formData.files = [...files];
+      // this.form.formData.files = [...files];
     }
   };
 }
@@ -1199,7 +1207,7 @@ $("#sacuvajIzdavacEdit").keypress(function (e) {
 });
 
 // Form validation for new book bind
-function validacijaPovez(event) {
+function validacijaPovez() {
 
   $("#validateNazivPovez").empty();
 
@@ -1207,7 +1215,6 @@ function validacijaPovez(event) {
 
   if (nazivPovez.length == 0) {
     $('#validateNazivPovez').append('<p style="color:red;font-size:13px;">Morate unijeti naziv poveza!</p>');
-    event.preventDefault();
   }
 }
 
@@ -1711,9 +1718,9 @@ function dropdown() {
   }
 }
 
-function funkcijaDatumVracanja() {
+function funkcijaDatumVracanja(dan=30) {
   var selectedDate = new Date($('#datumIzdavanja').val());
-  var numberOfDaysToAdd = 20;
+  var numberOfDaysToAdd = dan;
 
   selectedDate.setDate(selectedDate.getDate() + numberOfDaysToAdd);
 

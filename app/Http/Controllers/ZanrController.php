@@ -2,44 +2,111 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Zanr;
+use Illuminate\Http\Request;
 
 class ZanrController extends Controller
 {
-    public function index(){
-        $zanr= Zanr::all(); 
-        return view('/zanr.index', ['zanr'=>$zanr]);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $zanrs=Zanr::all();
+        return view('zanr.index',compact('zanrs'));
     }
-    public function create(){
-        return view('/zanr.create');
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('zanr.create');
     }
-    public function store(Request $request){
-        $zanr = new Zanr();
-        $zanr->naziv = $request->input('naziv');
-        $zanr->save();
-        return redirect('/settingsZanrovi');
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nazivZanra'=>'required',
+           ]);
+           $zanr=new Zanr();
+           $zanr->Naziv=$request->nazivZanra;
+           $zanr=$zanr->save();
+           if($zanr){
+              return redirect()->route('zanr.index')->with('success','Zanr je uspjesno dodata');
+           }
+              return redirect()->route('zanr.index')->with('fail','Zanr nije uspjesno dodata');
+       
     }
-    public function edit($id){
-        $zanr = zanr::find($id);
-        return view('/zanr.edit', compact('zanr'));
-   
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Zanr  $zanr
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Zanr $zanr)
+    {
+        //
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Zanr  $zanr
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Zanr $zanr)
+    {
+        $zanr=Zanr::find($zanr->id);
+        return view('zanr.edit',compact('zanr'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Zanr  $zanr
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Zanr $zanr)
+    {
+        $request->validate([
+            'nazivZanraEdit'=>'required',
+           ]);
+           $zanr=Zanr::where('id',$zanr->id)->update([
+           'Naziv'=>$request->nazivZanraEdit,
+           ]);
+           if($zanr){
+               return redirect()->route('zanr.index')->with('success','Zanr uspjesno azurirana');
+            }
+               return redirect()->route('zanr.index')->with('fail','Zanr nije uspjesno azurirana');
+       
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Zanr  $zanr
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Zanr $zanr)
+    {
+        $zanr=Zanr::where('id',$zanr->id)->delete();
+        if($zanr){
+            return redirect()->route('zanr.index')->with('success','Zanr je uspjesno obrisana');
+         }
+            return redirect()->route('zanr.index')->with('fail','Zanr nije uspjesno obrisana');
     
-    public function update($id, Request $request){
-        $input = $request->all(); 
-        $zanr = Zanr::find($id);
-        $zanr->naziv = $input['naziv'];
-        $zanr->save();
-        return redirect('/settingsZanrovi');
-
-
     }
-
-    
-        public function delete($id){
-            $zanr = Zanr::find($id)->delete();
-        
-            return redirect('/settingsZanrovi');
-    }
-} 
+}

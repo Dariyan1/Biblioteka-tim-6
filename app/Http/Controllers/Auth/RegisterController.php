@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Korisnik;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,7 +31,8 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-
+    protected $table="users";
+    protected $guarded=['JMBG','Foto'];
     /**
      * Create a new controller instance.
      *
@@ -51,8 +53,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'kname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:korisniks'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'tk'=>['required','string']
         ]);
     }
 
@@ -60,14 +64,16 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\User
+     * @return \App\Models\Korisnik
      */
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'tipkorisnika_id'=>$data['tk'],
+            'KorisnickoIme'=>$data['kname'],
+            'ImePrezime' => $data['name'],
+            'Email' => $data['email'],
+            'password' => Hash::make($data['password'])
         ]);
     }
 }

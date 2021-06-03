@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Jezik extends Model
 {
     use HasFactory;
+
     public function knjiga(){
-        return $this->hasMany(Knjige::class, 'knjiges');
+        return $this->hasMany(Knjiga::class);
     }
 }

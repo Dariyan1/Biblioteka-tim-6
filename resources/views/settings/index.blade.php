@@ -1,6 +1,5 @@
-@extends ('layouts.layout')
-@section ('content')
-<!-- Content -->
+@extends('layouts.layout')
+@section('content')
 <section class="w-screen h-screen pl-[80px] py-4 text-gray-700">
             <!-- Heading of content -->
             <div class="heading mt-[7px]">
@@ -13,25 +12,25 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="settingsPolisa" class="inline hover:text-blue-800 active-book-nav">
+                <a href="settingsPolisa.php" class="inline hover:text-blue-800 active-book-nav">
                     Polisa
                 </a>
-                <a href="settingsKategorije" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('kategorija.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Kategorije
                 </a>
-                <a href="settingsZanrovi" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('zanr.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Zanrovi
                 </a>
-                <a href="settingsIzdavac" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('izdavac.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Izdavac
                 </a>
-                <a href="settingsPovez" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('povez.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Povez
                 </a>
-                <a href="settingsFormat" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('format.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Format
                 </a>
-                <a href="settingsPismo" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('pismo.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Pismo
                 </a>
             </div>
@@ -97,6 +96,4 @@
                 </div>
             </div>
         </section>
-        <!-- End Content -->
-        
-        @endsection
+@endsection

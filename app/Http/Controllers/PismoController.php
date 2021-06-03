@@ -4,42 +4,110 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pismo;
-
 class PismoController extends Controller
 {
-    public function index(){
-        $pismo= Pismo::all(); 
-        return view('pismo.index', ['pismo'=>$pismo]);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $pisma=Pismo::all();
+        return view('pismo.index',compact('pisma'));
     }
-    public function create(){
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
         return view('pismo.create');
     }
-    public function store(Request $request){
-        $pismo = new Pismo();
-        $pismo->naziv = $request->input('naziv');
-        $pismo->save();
-        return redirect('/settingsPismo');
-    }
-    public function edit($id){
-        $pismo = Pismo::find($id);
-        return view('pismo.edit', compact('pismo'));
- 
-    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nazivPismo'=>'required'
+        ]);
+        $pismo=Pismo::create([
+            'Naziv'=>$request->nazivPismo
+        ]);
+        if($pismo){
+        return redirect()->route('pismo.index')->with('success','Novo pismo uspjesno dodato');
     
-    public function update($id, Request $request){
-        $input = $request->all(); 
-        $pismo = Pismo::find($id);
-        $pismo->naziv = $input['naziv'];
-        $pismo->save();
-        return redirect('/settingsPismo');
-
-
+        }
+        return redirect()->route('pismo.index')->with('fail','Novo pismo nije uspjesno dodato');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $pismo=Pismo::findOrFail($id);
+        return view('pismo.edit',compact('pismo'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nazivPismoEdit'=>'required'
+        ]);
+        $pismo=Pismo::findOrFail($id)->update([
+            'Naziv'=>$request->nazivPismoEdit
+        ]);
+        if($pismo){
+        return redirect()->route('pismo.index')->with('success','Novo pismo uspjesno azurirano');
     
-        public function delete($id){
-            $pismo = Pismo::find($id)->delete();
+        }
+        return redirect()->route('pismo.index')->with('fail','Novo pismo nije uspjesno azurirano');
+    
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $pismo=Pismo::where('id',$id)->delete();
+        if($pismo){
+            return redirect()->route('pismo.index')->with('success','Pismo je uspjesno obrisano');
         
-            return redirect('/settingsPismo');
+            }
+            return redirect()->route('pismo.index')->with('fail','Pismo nije uspjesno obrisano');
+        
     }
-} 
+}

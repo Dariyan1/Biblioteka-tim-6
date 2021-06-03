@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
-
-<section class="w-screen h-screen pl-[80px] py-4 text-gray-700">
+   <!-- Content -->
+   <section class="w-screen h-screen pl-[80px] py-4 text-gray-700">
             <!-- Heading of content -->
             <div class="heading mt-[7px]">
                 <div class="border-b-[1px] border-[#e4dfdf]">
@@ -13,31 +13,44 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="settingsPolisa.php" class="inline hover:text-blue-800">
+                <a href="{{route('polisa.create')}}" class="inline hover:text-blue-800">
                     Polisa
                 </a>
-                <a href="settingsKategorije" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('kategorija.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Kategorije
                 </a>
-                <a href="settingsZanrovi" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('zanr.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Zanrovi
                 </a>
-                <a href="settingsIzdavac" class="inline ml-[70px] hover:text-blue-800 active-book-nav">
+                <a href="{{route('izdavac.index')}}" class="inline ml-[70px] hover:text-blue-800 active-book-nav">
                     Izdavac
                 </a>
-                <a href="settingsPovez" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('povez.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Povez
                 </a>
-                <a href="settingsFormat" class="inline ml-[70px] hover:text-blue-800 ">
+                <a href="{{route('format.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Format
                 </a>
-                <a href="settingsPismo" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('pismo.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Pismo
                 </a>
             </div>
             <div class="height-kategorije pb-[30px] scroll">
+            @if(@session('success'))
+            <div class="bg-blue-100 mssg border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                <p class="font-bold items-center">{{session('success')}}</p>
+               
+            </div>
+            @endif
+            @if(@session('fail'))
+            <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                <p class="font-bold items-center">{{session('fail')}}</p>
+               
+            </div>
+            @endif
+
                 <div class="flex items-center px-[50px] py-8 space-x-3 rounded-lg">
-                    <a href="/createIzdavac"
+                    <a href="{{route('izdavac.create')}}"
                         class="btn-animation inline-flex items-center text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
                         <i class="fas fa-plus mr-[15px]"></i> Novi izdavac
                     </a>
@@ -60,7 +73,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                        @foreach($izdavac as $izdavac)
+                        @foreach($izdavaci as $iz)
                             <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
@@ -68,40 +81,40 @@
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <p>{{$izdavac->naziv}}</p>
+                                    <p>{{$iz->Naziv}}</p>
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsBookBind hover:text-[#606FC7]">
+                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsPublisher hover:text-[#606FC7]">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </p>
                                     <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-book-bind">
+                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-publisher">
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="/editIzdavac/{{$izdavac->id}}" tabindex="0"
+                                                <a href="{{route('izdavac.show',$iz->id)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izmijeni izdavac</span>
+                                                    <span class="px-4 py-0">Izmijeni izdavaca</span>
                                                 </a>
-                                                <a href="/deleteIzdavac/{{$izdavac->id}}" tabindex="0"
+                                                <form action="{{route('izdavac.destroy',$iz->id)}}" method="post" tabindex="0"
+                                               
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi izdavac</span>
-                                                </a>
+                                                    <button type="submit"><span class="px-4 py-0">Izbrisi izdavaca</span></button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                        
- 
-                        
-                        
-                        
-                        @endforeach 
+                            
+                            @endforeach      
+                                
                         </tbody>
                     </table>
 
@@ -170,5 +183,6 @@
             </div>
 
         </section>
+        <!-- End Content -->
 
 @endsection

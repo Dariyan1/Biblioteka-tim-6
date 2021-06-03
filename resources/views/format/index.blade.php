@@ -1,6 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 
+<!-- Content -->
 <section class="w-screen h-screen pl-[80px] py-4 text-gray-700">
             <!-- Heading of content -->
             <div class="heading mt-[7px]">
@@ -13,31 +14,43 @@
                 </div>
             </div>
             <div class="py-4 text-gray-500 border-b-[1px] border-[#e4dfdf] pl-[30px]">
-                <a href="settingsPolisa.php" class="inline hover:text-blue-800">
+                <a href="{{route('polisa.create')}}" class="inline hover:text-blue-800">
                     Polisa
                 </a>
-                <a href="settingsKategorije" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('kategorija.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Kategorije
                 </a>
-                <a href="settingsZanrovi" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('zanr.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Zanrovi
                 </a>
-                <a href="settingsIzdavac" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('izdavac.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Izdavac
                 </a>
-                <a href="settingsPovez" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('povez.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Povez
                 </a>
-                <a href="settingsFormat" class="inline ml-[70px] hover:text-blue-800 active-book-nav">
+                <a href="{{route('format.index')}}" class="inline ml-[70px] hover:text-blue-800 active-book-nav">
                     Format
                 </a>
-                <a href="settingsPismo" class="inline ml-[70px] hover:text-blue-800">
+                <a href="{{route('pismo.index')}}" class="inline ml-[70px] hover:text-blue-800">
                     Pismo
                 </a>
             </div>
             <div class="height-kategorije pb-[30px] scroll">
+            @if(@session('success'))
+            <div class="bg-blue-100 mssg border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                <p class="font-bold items-center">{{session('success')}}</p>
+               
+            </div>
+            @endif
+            @if(@session('fail'))
+            <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                <p class="font-bold items-center">{{session('fail')}}</p>
+               
+            </div>
+            @endif
                 <div class="flex items-center px-[50px] py-8 space-x-3 rounded-lg">
-                    <a href="/createFormat"
+                    <a href="{{route('format.create')}}"
                         class="btn-animation inline-flex items-center text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
                         <i class="fas fa-plus mr-[15px]"></i> Novi format
                     </a>
@@ -46,7 +59,7 @@
                 <div
                     class="inline-block min-w-full px-[50px] pt-3 align-middle bg-white rounded-bl-lg rounded-br-lg shadow-dashboard">
                     <table class="min-w-full shadow-lg" id="myTable">
-                        <thead class="bg-[#EFF3F6]">
+                    <thead class="bg-[#EFF3F6]">
                             <tr class="border-b-[1px] border-[#e4dfdf]">
                                 <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
                                     <label class="inline-flex items-center">
@@ -60,48 +73,47 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                        @foreach($format as $format)
-                            <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
+                        @foreach($formati as $f)
+                        <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
                                         <input type="checkbox" class="form-checkbox">
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <p>{{$format->naziv}}</p>
+                                    <p>{{$f->Naziv}}</p>
                                 </td>
                                 <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
-                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsBookBind hover:text-[#606FC7]">
+                                    <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsFormat hover:text-[#606FC7]">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </p>
                                     <div
-                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-book-bind">
+                                        class="relative z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-format">
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="/editFormat/{{$format->id}}" tabindex="0"
+                                                <a href="{{route('format.edit',$f->id)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Izmijeni format</span>
                                                 </a>
-                                                <a href="/deleteFormat/{{$format->id}}" tabindex="0"
+                                                <form action="{{route('format.destroy',$f->id)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
+                                                    role="menuitem" method="post">
+                                                    @csrf 
+                                                    @method('DELETE')
+                                                   <button type="submit"> <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Izbrisi format</span>
-                                                </a>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                        
- 
-                        
-                        
-                        
-                        @endforeach 
+                        @endforeach
+
                         </tbody>
                     </table>
 
