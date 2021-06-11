@@ -1,8 +1,8 @@
-@extends("layouts.layout")
-@section("content")
- 
-<!-- Content -->
-<section class="w-screen h-screen pl-[80px] pb-4 text-gray-700">
+@extends('layouts.layout')
+
+@section('content')
+        <!-- Content -->
+        <section class="w-screen h-screen pl-[80px] pb-4 text-gray-700">
             <!-- Heading of content -->
             <div class="heading">
                 <div class="flex border-b-[1px] border-[#e4dfdf]">
@@ -16,7 +16,7 @@
                             <nav class="w-full rounded">
                                 <ol class="flex list-reset">
                                 <li>
-                                        <a href="#" class="text-[#2196f3] hover:text-blue-600">
+                                        <a href="{{route('polisa.index')}}" class="text-[#2196f3] hover:text-blue-600">
                                             Settings
                                         </a>
                                     </li>
@@ -32,7 +32,7 @@
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="#" class="text-gray-400 hover:text-blue-600">
+                                        <a href="" class="text-gray-400 hover:text-blue-600">
                                             Izmijeni podatke
                                         </a>
                                     </li>
@@ -45,31 +45,30 @@
             
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form method="post" action="{{ route('pismo.update',$pismo->id) }}" class="text-gray-700 forma" >
-                    @csrf 
+                <form method="post" action="{{route('pismo.update', $pismo->id)}}" class="text-gray-700 forma">
+                    @csrf
                     @method('PUT')
-                   
                     <div class="flex flex-row ml-[30px]">
                         <div class="w-[50%] mb-[150px]">
                             <div class="mt-[20px]">
                                 <p>Naziv pisma <span class="text-red-500">*</span></p>
-                                <input type="text" name="nazivPismoEdit" id="nazivPismoEdit" value="{{$pismo->Naziv}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsNazivPismoEdit()"/>
-                                <div class="fail" id="validateNazivPismoEdit">@error('nazivPismoEdit') @php echo 'Polje naziv pisma je obavezno';  @endphp @enderror</div>
+                                <input type="text" name="naziv" id="nazivPismoEdit" value="{{$pismo->Naziv}}" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsNazivPismoEdit()"/>
+                                @error('naziv')@php echo "Naziv pisma je obavezno polje"; @endphp @enderror
+                                <div id="validateNazivPismoEdit"></div>
                             </div>
                         </div>
                     </div>
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-white text-right py-[7px] mr-[100px]">
-                                <button type="reset"
+                                <button type="button"
                                     class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                                    Ponisti <i class="fas fa-times ml-[4px]"></i>
+                                    <a href="{{route('pismo.index')}}"> Poništi <i class="fas fa-times ml-[4px]"></i></a>
                                 </button>
-                               <button id="sacuvajPismoEdit" type="submit"
+                                <button id="sacuvajPismoEdit" type="submit"
                                     class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]" onclick="validacijaPismoEdit()">
-                                    Sacuvaj <i class="fas fa-check ml-[4px]"></i>
+                                    Sačuvaj <i class="fas fa-check ml-[4px]"></i>
                                 </button>
-                                
                             </div>
                         </div>
                     </div>
@@ -77,4 +76,4 @@
             </div>
         </section>
         <!-- End Content -->
-@endsection
+        @endsection

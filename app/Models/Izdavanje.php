@@ -13,11 +13,14 @@ class Izdavanje extends Model
         return $this->belongsToMany(Statusknjige::class,'izdavanjestatusknjiges','izdavanje_id','statusknjige_id');
     }
 
-    /* Kako povezati users i knjigas preko izdavanjes
+   
     public function izdataOd(){
-        return $this->hasManyThrough(Knjiga::class,User::class,'izdavanjes','knjiga_id','izdaokorisnik_id');
+        return $this->hasManyThrough(Knjiga::class,User::class,'izdavanjes','knjiga_id','id','id', 'izdaokorisnik_id');
     }
-
+    public function izdavanja(){
+        return $this->join('izdavanjes','izdavanjes.knjiga_id','knjiga.id')->get();
+    }
+/*
     public function izdataZa(){
         return $this->hasManyThrough(Knjiga::class,User::class,'izdavanjes','knjiga_id','pozajmiokorisnik_id');
     }

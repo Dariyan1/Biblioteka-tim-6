@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class AutorKnjiga extends Model
+class Autor extends Model
 {
-    
+    use HasFactory;
     public function knjigas(){
-        return $this->belongsToMany(Knjiga::all);
+        return $this->belongsToMany(Knjiga::class);
+        
+        
     }
+    
 }

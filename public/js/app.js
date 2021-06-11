@@ -384,9 +384,9 @@ function validacijaBibliotekar() {
   let pwBibliotekar = $("#pwBibliotekar").val();
   let pw2Bibliotekar = $("#pw2Bibliotekar").val();
 
-  if (nameBibliotekar.length == 0) {
+  /*if (nameBibliotekar.length == 0) {
     $('#validateNameBibliotekar').append('<p style="color:red;font-size:13px;">Morate unijeti ime i prezime!</p>');
-  }
+  }*/
 
   if (jmbgBibliotekar.length == 0) {
     $('#validateJmbgBibliotekar').append('<p style="color:red;font-size:13px;">Morate unijeti JMBG!</p>');
@@ -1121,9 +1121,9 @@ function validacijaZanr() {
 
   let nazivZanra = $("#nazivZanra").val();
 
-  if (nazivZanra.length == 0) {
-    $('#validateNazivZanra').append('<p style="color:red;font-size:13px;">Morate unijeti naziv zanra!</p>');
-  }
+  /*if (nazivZanra.length == 0) {
+    $('#validateNazivZanra').append('<p style="color:red;font-size:13px;">Morate unijeti naziv žanra!</p>');
+  }*/
 }
 
 function clearErrorsNazivZanra() {
@@ -1144,9 +1144,9 @@ function validacijaZanrEdit() {
 
   let nazivZanraEdit = $("#nazivZanraEdit").val();
 
-  if (nazivZanraEdit.length == 0) {
-    $('#validateNazivZanraEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv zanra!</p>');
-  }
+  /*if (nazivZanraEdit.length == 0) {
+    $('#validateNazivZanraEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv žanra!</p>');
+  }*/
 }
 
 function clearErrorsNazivZanraEdit() {
@@ -1167,9 +1167,9 @@ function validacijaIzdavac() {
 
   let nazivIzdavac = $("#nazivIzdavac").val();
 
-  if (nazivIzdavac.length == 0) {
-    $('#validateNazivIzdavac').append('<p style="color:red;font-size:13px;">Morate unijeti naziv izdavaca!</p>');
-  }
+  //if (nazivIzdavac.length == 0) {
+   // $('#validateNazivIzdavac').append('<p style="color:red;font-size:13px;">Morate unijeti naziv izdavaca!</p>');
+ // }
 }
 
 function clearErrorsNazivIzdavac() {
@@ -1190,9 +1190,9 @@ function validacijaIzdavacEdit() {
 
   let nazivIzdavacEdit = $("#nazivIzdavacEdit").val();
 
-  if (nazivIzdavacEdit.length == 0) {
-    $('#validateNazivIzdavacEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv izdavaca!</p>');
-  }
+  //if (nazivIzdavacEdit.length == 0) {
+   // $('#validateNazivIzdavacEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv izdavaca!</p>');
+ // }
 }
 
 function clearErrorsNazivIzdavacEdit() {
@@ -1213,7 +1213,7 @@ function validacijaPovez() {
 
   let nazivPovez = $("#nazivPovez").val();
 
-  if (nazivPovez.length == 0) {
+  /*if (nazivPovez.length == 0) {
     $('#validateNazivPovez').append('<p style="color:red;font-size:13px;">Morate unijeti naziv poveza!</p>');
   }
 }
@@ -1236,9 +1236,9 @@ function validacijaPovezEdit() {
 
   let nazivPovezEdit = $("#nazivPovezEdit").val();
 
-  if (nazivPovezEdit.length == 0) {
+  /*if (nazivPovezEdit.length == 0) {
     $('#validateNazivPovezEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv poveza!</p>');
-  }
+  }*/
 }
 
 function clearErrorsNazivPovezEdit() {
@@ -1259,9 +1259,9 @@ function validacijaFormat() {
 
   let nazivFormat = $("#nazivFormat").val();
 
-  if (nazivFormat.length == 0) {
+  /*if (nazivFormat.length == 0) {
     $('#validateNazivFormat').append('<p style="color:red;font-size:13px;">Morate unijeti naziv formata!</p>');
-  }
+  }*/
 }
 
 function clearErrorsNazivFormat() {
@@ -1282,9 +1282,9 @@ function validacijaFormatEdit() {
 
   let nazivFormatEdit = $("#nazivFormatEdit").val();
 
-  if (nazivFormatEdit.length == 0) {
+  /*if (nazivFormatEdit.length == 0) {
     $('#validateNazivFormatEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv formata!</p>');
-  }
+  }*/
 }
 
 function clearErrorsNazivFormatEdit() {
@@ -1305,9 +1305,9 @@ function validacijaPismo() {
 
   let nazivPismo = $("#nazivPismo").val();
 
-  if (nazivPismo.length == 0) {
+  /*if (nazivPismo.length == 0) {
     $('#validateNazivPismo').append('<p style="color:red;font-size:13px;">Morate unijeti naziv pisma!</p>');
-  }
+  }*/
 }
 
 function clearErrorsNazivPismo() {
@@ -1327,10 +1327,10 @@ function validacijaPismoEdit() {
   $("#validateNazivPismoEdit").empty();
 
   let nazivPismoEdit = $("#nazivPismoEdit").val();
-
+/*
   if (nazivPismoEdit.length == 0) {
     $('#validateNazivPismoEdit').append('<p style="color:red;font-size:13px;">Morate unijeti naziv pisma!</p>');
-  }
+  }*/
 }
 
 function clearErrorsNazivPismoEdit() {
@@ -1709,18 +1709,23 @@ function dropdown() {
     },
     selectedValuesZanrEdit() {
       const options = document.getElementById('zanrEdit').options;
-      return options[2].innerText;
+      return options[1].innerText;
     },
     selectedValuesAutoriEdit() {
       const options = document.getElementById('autoriEdit').options;
-      return options[0].innerText;
+      return options[1].innerText;
+    },
+
+    selectedValuesIzdavacEdit() {
+      const options = document.getElementById('izdavacEdit').options;
+      return options[1].innerText;
     }
   }
 }
 
-function funkcijaDatumVracanja(dan=30) {
+function funkcijaDatumVracanja() {
   var selectedDate = new Date($('#datumIzdavanja').val());
-  var numberOfDaysToAdd = dan;
+  var numberOfDaysToAdd = 30;
 
   selectedDate.setDate(selectedDate.getDate() + numberOfDaysToAdd);
 
@@ -1993,7 +1998,7 @@ $(document).on('mouseup', function (e) {
   }
 });
 
-// Student - profile - book record - dropdown
+// Student - profile - book record - dropdownphp at
 $(".dotsStudentProfileBookRecord").click(function () {
   var dotsStudentProfileBookRecord = $(this);
   var dropdownStudentProfileEvidencijaKnjige = dotsStudentProfileBookRecord.closest("td").find(".dropdown-student-profile-evidencija-knjige");

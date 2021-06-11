@@ -9,5 +9,5 @@ class Bibliotekar extends Model
 {
     use HasFactory;
     protected $table='users';
-    protected $guarded=[];
 }
+

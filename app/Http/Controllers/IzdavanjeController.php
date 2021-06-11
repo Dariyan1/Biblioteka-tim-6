@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Izdavanje;
+use App\Models\User;
+use App\Models\Globalnavarijabla;
 use Illuminate\Http\Request;
 
 class IzdavanjeController extends Controller
@@ -14,7 +16,7 @@ class IzdavanjeController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -24,7 +26,7 @@ class IzdavanjeController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +37,11 @@ class IzdavanjeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      /*  $izdavanje=new Izdavanje();
+        $izdavanje->pozajmiokorisnik_id=$request->input('ucenik');
+        $izdavanje->datumizdavanja=$request->input('datumizdavanja');
+        $global=Globalnavarijabla::where('varijabla','ROK_VRACANJA');
+        $izdavanje->datumvracanja=$request->input('datumizdavanja');*/
     }
 
     /**

@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
-     <!-- Content -->
-     <section class="w-screen h-screen py-4 pl-[80px] text-[#333333]">
+
+<section class="w-screen h-screen py-4 pl-[80px] text-[#333333]">
             <!-- Heading of content -->
             <div class="heading mt-[7px]">
                 <h1 class="pl-[30px] pb-[21px] border-b-[1px] border-[#e4dfdf] ">
@@ -10,18 +10,6 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-dashboard">
-            @if(@session('success'))
-            <div class="bg-blue-100 mssg border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-                <p class="font-bold items-center">{{session('success')}}</p>
-               
-            </div>
-            @endif
-            @if(@session('fail'))
-            <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-                <p class="font-bold items-center">{{session('fail')}}</p>
-               
-            </div>
-            @endif
                 <div class="flex items-center justify-between px-[30px] py-4 space-x-3 rounded-lg">
                     <a href="{{route('bibliotekar.create')}}" class="btn-animation inline-flex items-center text-sm py-2.5 px-5 rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
                         <i class="fas fa-plus mr-[15px]"></i> Novi bibliotekar  
@@ -72,8 +60,14 @@
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileExample.jpg"
-                                        alt="" />
+                                 <!--
+                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="@if($b->Foto){{ asset('/storage' . $b->Foto) }}@else /img/defaultusericon.jpg @endif" alt="nema slike" /> 
+                                -->
+                                  <img class="object-cover w-8 h-8 mr-2 rounded-full" src="@if($b->Foto){{ url('storage'.$b->Foto) }}@else /img/defaultusericon.jpg @endif" alt="None" title="Slika"/>
+                                  
+                                  <span class="font-medium text-center">{{ url('storage'.$b->Foto) }} </span><>
+                                 <span class="font-medium text-center">{{ asset('/storage' . $b->Foto) }} </span>
+                                    
                                     <a href="{{route('bibliotekar.show',$b->id)}}">
                                         <span class="font-medium text-center">{{$b->ImePrezime}}</span>
                                     </a>
@@ -109,7 +103,7 @@
                                                     @csrf 
                                                     @method('DELETE')
                                                     <button type="submit"><i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi korisnika</span>
+                                                    <span class="px-4 py-0">Izbriši korisnika</span>
                                                     </button>
                                                 </form>
                                                 <a href="#" tabindex="0"
@@ -123,7 +117,7 @@
                                     </div>
                                 </td>
                             </tr>
-                           @endforeach
+                            @endforeach
                         </tbody>
                     </table>
 
@@ -192,5 +186,4 @@
             </div>
 
         </section>
-        <!-- End Content -->
-@endsection
+        @endsection

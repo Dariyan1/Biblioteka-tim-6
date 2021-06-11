@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PismoSeeder extends Seeder
 {
@@ -13,6 +14,9 @@ class PismoSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('pismos')->insert([
+            'Naziv' => 'Cirilica' ]);
+            DB::table('pismos')->insert([
+                'Naziv' => 'Latinica' ]);
     }
 }

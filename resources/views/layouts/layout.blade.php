@@ -13,25 +13,25 @@
     <!-- End Meta -->
 
     <!-- Title -->
-    <title>Edit book bind | Specification | Library - ICT Cortex student project</title>
+    <title>Dashboard | Library - ICT Cortex student project</title>
     <link rel="shortcut icon" href="/img/library-favicon.ico" type="image/vnd.microsoft.icon" />
     <!-- End Title -->
 
+
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-   
+    <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />    <!-- End Styles -->
 </head>
 
-<body class="overflow-hidden small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
+<body class="small:bg-gradient-to-r small:from-green-400 small:to-blue-500">
     <!-- Header -->
     <header
     class="z-20 small:hidden  flex items-center text-white justify-between w-full h-[71px] pr-[30px] mx-auto bg-[#4558BE]">
     <!-- logo -->
     <div class="logo-font inline-flex bg-[#3F51B5] py-[18px] px-[30px]">
-        <a class="_o6689fn" href="{{route('dashboard')}}">
+        <a class="_o6689fn" href="#">
             <div class="block">
-                <a href="{{route('dashboard')}}" class="text-[20px] font-medium">
+                <a href="/dashboard" class="text-[20px] font-medium">
                     <div class="flex">
                         <img src='/img/logo.svg' alt="" width="35px" height="35px">
                         <p class="text-[20px] mt-[5px]">&nbsp;&nbsp;Online Biblioteka</p>
@@ -74,25 +74,25 @@
                     <div class="absolute right-[12px] w-56 mt-[35px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                         aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                         <div class="py-1">
-                            <a href="noviBibliotekar.php" tabindex="0"
+                            <a href="{{route('bibliotekar.create')}}" tabindex="0"
                                 class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                 role="menuitem">
                                 <i class="far fa-address-book mr-[8px] ml-[5px] py-1"></i>
                                 <span class="px-4 py-0">Bibliotekar</span>
                             </a>
-                            <a href="noviUcenik.php" tabindex="0"
+                            <a href="{{route('ucenik.create')}}" tabindex="0"
                                 class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                 role="menuitem">
                                 <i class="fas fa-users mr-[5px] ml-[3px] py-1"></i>
                                 <span class="px-4 py-0">Ucenik</span>
                             </a>
-                            <a href="novaKnjiga.php" tabindex="0"
+                            <a href="{{route('knjiga.create')}}" tabindex="0"
                                 class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                 role="menuitem">
                                 <i class="far fa-copy mr-[10px] ml-[5px] py-1"></i>
                                 <span class="px-4 py-0">Knjiga</span>
                             </a>
-                            <a href="noviAutor.php" tabindex="0"
+                            <a href="{{route('autor.create')}}" tabindex="0"
                                 class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                 role="menuitem">
                                 <i class="far fa-address-book mr-[10px] ml-[5px] py-1"></i>
@@ -144,7 +144,7 @@
                         aria-label="User profile">
                         <div class="flex items-center h-5">
                             <div class="w-[40px] h-[40px] mt-[15px]">
-                                <img class="rounded-full" src="/img/profileImg-default.jpg" alt="">
+                                 <img class="rounded-full" src="@if( Auth::user()->Foto) {{ url('/storage' . Auth::user()->Foto)}} @else img/defaultusericon.jpg @endif" alt="">  
                             </div>
                         </div>
                     </a>
@@ -153,25 +153,27 @@
                     class="z-10 hidden transition-all duration-300 origin-top-right transform scale-95 -translate-y-2 dropdown-profile">
                     <div class="absolute right-[12px] w-56 mt-[35px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                         aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
-                        <div class="py-1">
-                            <a href="bibliotekarProfile.php" tabindex="0"
+                       <div class="py-1">
+                            <a href="
+                        @if(Auth::user()->tipkorisnika_id == 1) 
+                         {{route('ucenik.show' , Auth::user())}} 
+                         @else 
+                        {{route('bibliotekar.show' , Auth::user())}} 
+                        @endif "
+                        tabindex="0"
                                 class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                 role="menuitem">
                                 <i class="fas fa-file mr-[8px] ml-[5px] py-1"></i>
-                                <span class="px-4 py-0">Profile</span>
+                         <span class="px-4 py-0">{{Auth::user()->ImePrezime}}</span> 
                             </a>
-                            <a class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600" href="#"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                            <a href="{{ route('login') }}" tabindex="0"
+                                class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
+                                role="menuitem">
                                 <i class="fas fa-sign-out-alt mr-[5px] ml-[5px] py-1"></i>
                                 <span class="px-4 py-0">Logout</span>
                             </a>
-
-                            <form id="logout-form" action="#" method="POST" class="d-none">
-                                @csrf
-                            </form>
                         </div>
-                        
+                      
                     </div>
                 </div>
             </div>
@@ -198,7 +200,7 @@
                     <div class="ml-[25px]">
                         <span class="flex justify-between w-full fill-current whitespace-nowrap">
                             <div class="transition duration-300 ease-in group-hover:text-[#576cdf]">
-                                <a href="{{ route('dashboard') }}" aria-label="Dashboard">
+                                <a href="/dashboard" aria-label="Dashboard">
                                     <i
                                         class="text-white bg-[#3F51B5] px-[5px] pt-[4px] pb-[5px] fas fa-tachometer-alt text-[19px] rounded-[3px]"></i>
                                     <div class="hidden sidebar-item">
@@ -287,7 +289,7 @@
                     <div class="ml-[30px]">
                         <span class="flex justify-between w-full whitespace-nowrap">
                             <div>
-                                <a href="izdateKnjige.php" aria-label="Knjige">
+                                <a href="{{route('evidencija.index')}}" aria-label="Knjige">
                                     <i
                                         class="text-[22px] transition duration-300 ease-in group-hover:text-[#576cdf] text-[#707070] fas fa-exchange-alt"></i>
                                     <div class="hidden sidebar-item">
@@ -360,7 +362,7 @@
     </div>
     <div class="sidebar-nav py-[10px] border-t-[1px] border-[#e4dfdf] pt-[23px] pb-[29px]  group hover:bg-[#EFF3F6]">
         <!-- Settings Icon -->
-        <a href="{{route('polisa.create')}}" aria-label="Settngs" class="ml-[30px]">
+        <a href="{{route('polisa.index')}}" aria-label="Settngs" class="ml-[30px]">
             <span class="whitespace-nowrap">
                 <i
                     class="transition duration-300 ease-in group-hover:text-[#576cdf] text-[22px] text-[#707070] fas fa-cog"></i>
@@ -373,12 +375,14 @@
     </div>
 </nav>        <!-- End Sidebar -->
 
-        <!-- Content -->
+
+
+
 
 @yield('content')
 
-         <!-- End Content -->
- </main>
+
+</main>
     <!-- End Main content -->
 
     <!-- Notification for small devices -->
@@ -392,8 +396,8 @@
     </p>
 </div>
 
-    <!-- Scripts -->
-    <script src="/js/jquery.min.js " defer=""></script>
+   <!-- Scripts -->
+   <script src="/js/jquery.min.js " defer=""></script>
 <script src="/js/app.js " defer=""></script>
 <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
@@ -401,8 +405,18 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <script src="https://unpkg.com/create-file-list"></script>    <!-- End Scripts -->
 
-   <script>
+<script>
     CKEDITOR.replace('kratki_sadrzaj', {
+        width: "90%",
+        height: "150px"
+    });
+
+    CKEDITOR.replace('Opis', {
+        width: "90%",
+        height: "150px"
+    });
+
+    CKEDITOR.replace('Biografija', {
         width: "90%",
         height: "150px"
     });

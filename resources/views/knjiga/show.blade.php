@@ -72,7 +72,7 @@
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                        <span class="px-4 py-0">Izbrisi knjigu</span>
+                                        <span class="px-4 py-0">Izbriši knjigu</span>
                                     </a>
                                 </div>
                             </div>
@@ -86,10 +86,10 @@
                         <a href="{{route('knjiga.show',$knjiga->id)}}" class="inline active-book-nav hover:text-blue-800">
                             Osnovni detalji
                         </a>
-                        <a href="{{route('knjiga.spec',$knjiga)}}" class="inline ml-[70px] hover:text-blue-800 ">
+                        <a href="" class="inline ml-[70px] hover:text-blue-800 ">
                             Specifikacija
                         </a>
-                        <a href="{{route('knjiga.iznajmljena',$knjiga)}}" class="inline ml-[70px] hover:text-blue-800">
+                        <a href="iznajmljivanjeIzdate.php" class="inline ml-[70px] hover:text-blue-800">
                             Evidencija iznajmljivanja
                         </a>
                         <a href="evidencijaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
@@ -107,13 +107,13 @@
                                     </div>
                                     <div class="mt-[40px]">
                                         <span class="text-gray-500 text-[14px]">Kategorija</span>
-                                        @foreach($knjiga->kategorijas as $kategorija)
+                                        @foreach($knjiga->kategorijes as $kategorija)
                                         <p class="font-medium">{{$kategorija->Naziv}}</p>
                                         @endforeach
                                     </div>
                                     <div class="mt-[40px]">
                                         <span class="text-gray-500 text-[14px]">Zanr</span>
-                                        @foreach($knjiga->zanrs as $kategorija)
+                                        @foreach($knjiga->zanrovis as $kategorija)
                                         <p class="font-medium">{{$kategorija->Naziv}}</p>
                                         @endforeach
                                     </div>
@@ -140,7 +140,7 @@
                                             Storyline (Kratki sadrzaj)
                                         </h4>
                                         <p class="addReadMore showlesscontent my-[10px]">
-                                            {!! $knjiga->Sadrzaj !!}
+                                            {{$knjiga->Sadrzaj}}
                                         </p>
                                     </div>
                                 </div>
@@ -159,20 +159,19 @@
                                 <p class="mt-[20px]">Ukupna kolicina:</p>
                             </div>
                             <div class="text-center pb-[30px]">
-                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">5
-                                    primjeraka</p>
+                                <p class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">{{$knjiga->UkupnoPrimjeraka-$knjiga->RezervisanoPrimjeraka-$knjiga->IzdatoPrimjeraka}}</p>
                                 <a href="iznajmljivanjeAktivne.php"><p
                                     class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    2 primjerka</p></a>
+                                    {{$knjiga->RezervisanoPrimjeraka}}</p></a>
                                     <a href="iznajmljivanjeIzdate.php"><p
                                     class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    102 primjerka</p></a>
+                                    {{$knjiga->IzdatoPrimjeraka}}</p></a>
                                     <a href="iznajmljivanjePrekoracenje.php">  <p
                                     class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    2 primjerka</p></a>
+                                    {{0}}</p></a>
                                 <p
                                     class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                    15 primjeraka</p>
+                                    {{$knjiga->UkupnoPrimjeraka}}</p>
                             </div>
                         </div>
                     </div>
@@ -269,7 +268,7 @@
                         </div>
                         <div class="mt-[40px]">
                             <a href="dashboardAktivnost.php?knjiga=Tom Sojer" class="text-[#2196f3] hover:text-blue-600">
-                                <i class="fas fa-history"></i> Prikazi sve
+                                <i class="fas fa-history"></i> Prikaži sve
                             </a>
                         </div>
                     </div>

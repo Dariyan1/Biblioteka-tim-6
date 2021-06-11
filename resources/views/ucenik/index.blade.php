@@ -5,26 +5,14 @@
             <!-- Heading of content -->
             <div class="heading mt-[7px]">
                 <h1 class="pl-[50px] pb-[21px]  border-b-[1px] border-[#e4dfdf] ">
-                    Ucenici
+                    Učenici
                 </h1>
             </div>
             <!-- Space for content -->
             <div class="scroll height-dashboard">
-             @if(@session('success'))
-             <div class="bg-blue-100 mssg border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-                <p class="font-bold items-center">{{session('success')}}</p>
-               
-             </div>
-            @endif
-            @if(@session('fail'))
-            <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-                <p class="font-bold items-center">{{session('fail')}}</p>
-               
-             </div>
-            @endif
                 <div class="flex items-center justify-between px-[50px] py-4 space-x-3 rounded-lg">
                     <a href="{{route('ucenik.create')}}" class="btn-animation inline-flex items-center text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
-                        <i class="fas fa-plus mr-[15px]"></i> Novi ucenik  
+                        <i class="fas fa-plus mr-[15px]"></i> Novi učenik  
                     </a>
                     <div class="flex items-center">
                         <div class="relative text-gray-600 focus-within:text-gray-400">
@@ -55,7 +43,7 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                        @foreach($ucenici as $ucenik)
+                        @foreach($ucenici as $u)
                             <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-4 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
@@ -63,13 +51,16 @@
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-4">
-                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="img/profileStudent.jpg" alt=""/>
-                                    <a href="{{route('ucenik.show',$ucenik->id)}}">
-                                        <span class="font-medium text-center">{{$ucenik->ImePrezime}}</span>
+
+                                    <img class="object-cover w-8 h-8 mr-2 rounded-full" src="@if($u->Foto){{ url('storage'.$u->Foto) }} @else /img/defaultusericon.jpg @endif" alt="" /> 
+
+
+                                    <a href="{{route('ucenik.show',$u->id)}}">
+                                        <span class="font-medium text-center">{{$u->ImePrezime}}</span>
                                     </a>
                                 </td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$ucenik->email}}</td>
-                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$ucenik->tipkorisnika->Naziv}}</td>
+                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$u->email}}</td>
+                                <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">{{$u->tipkorisnika->Naziv}}</td>
                                 <td class="px-4 py-4 text-sm leading-5 whitespace-no-wrap">Prije 10 sati</td>
                                 <td class="px-4 py-4 text-sm leading-5 text-right whitespace-no-wrap">
                                     <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsStudent hover:text-[#606FC7]">
@@ -80,32 +71,33 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('ucenik.show',$ucenik->id)}}" tabindex="0"
+                                                <a href="{{route('ucenik.show',$u->id)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Pogledaj detalje</span>
                                                 </a>
-                                                <a href="{{route('ucenik.edit',$ucenik->id)}}" tabindex="0"
+                                                <a href="{{route('ucenik.edit',$u->id)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Izmijeni korisnika</span>
                                                 </a>
-                                                <form  method="POST" action="{{route('ucenik.destroy',$ucenik->id)}}" tabindex="0"
+                                                <form method="post" action="{{route('ucenik.destroy',$u->id)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     @csrf 
                                                     @method('DELETE')
-                                                  <button type="submit">  <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Izbrisi korisnika</span>
+                                                    <button type="submit"><i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
+                                                    <span class="px-4 py-0">Izbriši korisnika</span>
                                                     </button>
                                                 </form>
+
                                                 <a href="#" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fa fa-redo-alt mr-[3px] ml-[5px] py-1"></i>
-                                                    <span class="px-4 py-0">Resetuj sifru</span>
+                                                    <span class="px-4 py-0">Resetuj šifru</span>
                                                 </a>
                                             </div>
                                         </div>

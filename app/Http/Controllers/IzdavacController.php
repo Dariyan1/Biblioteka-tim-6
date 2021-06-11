@@ -2,114 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Izdavac;
 use Illuminate\Http\Request;
+use App\Models\Izdavac;
+use App\Models\Knjiga;
 
 class IzdavacController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $izdavaci=Izdavac::all();
-        return view('izdavac.index',compact('izdavaci'));
+        $izdavaci= Izdavac::all();
+        return view('izdavac.index', ['izdavaci'=>$izdavaci]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('izdavac.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'nazivIzdavac'=>'required'
+        $val = $request->validate([
+            'Naziv' => 'required'
         ]);
-        $izdavac=new Izdavac();
-        $izdavac->Naziv=$request->nazivIzdavac;
-        $izdavac=$izdavac->save();
-        if($izdavac){
-          return redirect()->route('izdavac.index')->with('success','Izdavac je uspješno dodat');
-        }else{
-          return redirect()->route('izdavac.index')->with('fail','Izdavac nije uspješno dodat'); 
+
+        $izdavac = new Izdavac();
+        $izdavac->Naziv = $request->input('Naziv');
+        $izdavac->save();
+
+
+        if ($val) {
+            return redirect()->route('izdavac.index');
+        } else {
+            return redirect()->route('izdavac.create')->with('fail', 'Popunite sva polja obilježena zvjezdicom');
+        }
+    }
+    public function edit($id)
+    {
+        $izdavac = Izdavac::find($id);
+        return view('izdavac.edit', ['izdavac'=>$izdavac]);
+    
+    }
+    
+    public function update($id, Request $request)
+    {
+        $val = $request->validate([
+            'Naziv' => 'required'
+        ]);
+        $input = $request->all();
+        $izdavac = Izdavac::find($id);
+        $izdavac->Naziv = $input['Naziv'];
+        $izdavac->save();
+
+
+        if ($val) {
+            return redirect()->route('izdavac.index');
+        } else {
+            return redirect()->route('izdavac.edit')->with('fail', 'Popunite sva polja obilježena zvjezdicom');
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Izdavac  $izdavac
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Izdavac $izdavac)
+    
+    public function destroy($id)
     {
-        $izdavac=Izdavac::find($izdavac->id);
-        return view('izdavac.show',["izdavac"=>$izdavac]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Izdavac  $izdavac
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Izdavac $izdavac)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Izdavac  $izdavac
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Izdavac $izdavac)
-    {
-        $request->validate([
-         'nazivIzdavacEdit'=>'required'
-        ]);
-        $azurirano=Izdavac::where('id',$izdavac->id)->update([
-            'Naziv'=>$request->nazivIzdavacEdit
-        ]);
-        if($azurirano){
-            return redirect()->route('izdavac.index')->with('success','Izdavac je uspješno azuriran');
-          }else{
-            return redirect()->route('izdavac.index')->with('fail','Izdavac nije uspješno azuriran'); 
-          }
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Izdavac  $izdavac
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Izdavac $izdavac)
-    {
-        
-        $izdanje=Izdavac::where('id',$izdavac->id);
-        $obrisi=$izdanje->delete();
-        if($obrisi){
-            return redirect()->route('izdavac.index')->with('success','Izdavac je uspješno obrisan');
-          }else{
-            return redirect()->route('izdavac.index')->with('fail','Izdavac nije uspješno obrisan'); 
-          }
+            $izdavac = Izdavac::find($id)->delete();
+            return redirect()->route('izdavac.index');
     }
 }

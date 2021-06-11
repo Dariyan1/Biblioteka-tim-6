@@ -13,6 +13,6 @@ class KnjigaSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
     }
 }

@@ -1,7 +1,5 @@
 @extends('layouts.layout')
 @section('content')
-<!------------------------ODAVDE IDE U VIEW CREATE.BLADE.PHP   ------------------------------->
-<!-- End Sidebar -->
 <section class="w-screen h-screen pl-[80px] pb-4 text-gray-700">
             <!-- Heading of content -->
             <div class="heading">
@@ -50,8 +48,6 @@
                 <form method="post" action="{{route('knjiga.store')}}" class="text-gray-700 forma">
                 @csrf 
                 @method('POST')
-                <input type="hidden" name="izdato" value="0"/>
-                <input type="hidden" name="rezervisano" value="0"/>
                 <div id="tab1s" class="aktivni sadrzaj">
                     <div class="flex flex-row ml-[30px] mb-[150px]">
                         <div class="w-[50%]">
@@ -90,7 +86,7 @@
                                         <div class="relative flex flex-col items-center">
                                             <div x-on:click="open" class="w-full svelte-1l8159u">
                                                 <div class="flex p-1 my-2 bg-white border border-gray-300 shadow-sm svelte-1l8159u focus-within:ring-2 focus-within:ring-[#576cdf]"
-                                                    onclick="clearErrorsKategorija()">
+                                                    >
                                                     <div class="flex flex-wrap flex-auto">
                                                         <template x-for="(option,index) in selected"
                                                             :key="options[option].value">
@@ -187,7 +183,7 @@
                                     <div class="relative flex flex-col items-center">
                                         <div x-on:click="open" class="w-full svelte-1l8159u">
                                             <div class="flex p-1 my-2 bg-white border border-gray-300 shadow-sm svelte-1l8159u focus-within:ring-2 focus-within:ring-[#576cdf]"
-                                                onclick="clearErrorsZanr()">
+                                                >
                                                 <div class="flex flex-wrap flex-auto">
                                                     <template x-for="(option,index) in selected"
                                                         :key="options[option].value">
@@ -287,7 +283,7 @@
                             <div class="relative flex flex-col items-center">
                                 <div x-on:click="open" class="w-full svelte-1l8159u">
                                     <div class="flex p-1 my-2 bg-white border border-gray-300 shadow-sm svelte-1l8159u focus-within:ring-2 focus-within:ring-[#576cdf]"
-                                        onclick="clearErrorsAutori()">
+                                        >
                                         <div class="flex flex-wrap flex-auto">
                                             <template x-for="(option,index) in selected" :key="options[option].value">
                                                 <div
@@ -611,12 +607,12 @@
                     <div class="inline-block w-full text-white text-right py-[7px] mr-[100px]">
                         <button type="button"
                             class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                            Ponisti <i class="fas fa-times ml-[4px]"></i>
+                            <a href="{{route('knjiga.index')}}" >Poništi <i class="fas fa-times ml-[4px]"></i> </a>
                         </button>
-                        <button id="sacuvajKnjiguEdit" type="submit"
+                        <button id="sacuvajKnjigu" type="submit"
                             class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]"
-                            onclick="validacijaKnjigaEdit()">
-                            Sacuvaj <i class="fas fa-check ml-[4px]"></i>
+                            >
+                            Sačuvaj<i class="fas fa-check ml-[4px]"></i>
                         </button>
                     </div>
                 </div>
@@ -624,6 +620,4 @@
             </form>
             </div>
         </section>
-        <!-- End Content -->
-        <!------------------------DOAVDE IDE U VIEW CREATE.BLADE.PHP   ------------------------------->
 @endsection

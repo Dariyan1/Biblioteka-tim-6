@@ -160,26 +160,25 @@
                                     <div class="text-center pb-[30px]">
                                         <p
                                             class=" bg-green-200 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                            5
-                                            primjeraka</p>
+                                           {{$knjiga->UkupnoPrimjeraka - $knjiga->RezervisanoPrimjeraka-$knjiga->IzdatoPrimjeraka}}</p>
                                         <a href="iznajmljivanjeAktivne.php">
                                             <p
                                                 class=" mt-[16px] bg-yellow-200 text-yellow-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                2 primjerka</p>
+                                                {{$knjiga->RezervisanoPrimjeraka}}</p>
                                         </a>
                                         <a href="iznajmljivanjeIzdate.php">
                                             <p
                                                 class=" mt-[16px] bg-blue-200 text-blue-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                10 primjeraka</p>
+                                               {{$knjiga->IzdatoPrimjeraka}}</p>
                                         </a>
                                         <a href="iznajmljivanjePrekoracenje.php">
                                             <p
                                                 class=" mt-[16px] bg-red-200 text-red-800 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                                2 primjerka</p>
+                                                    {{0}}</p>
                                         </a>
                                         <p
                                             class=" mt-[16px] border-[1px] border-green-700 text-green-700 rounded-[10px] px-[6px] py-[2px] text-[14px]">
-                                            15 primjeraka</p>
+                                            {{$knjiga->UkupnoPrimjeraka}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +190,7 @@
                             <div class="inline-block w-full text-right py-[7px] mr-[100px] text-white">
                                 <button type="submit"
                                     class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                                    Ponisti <i class="fas fa-times ml-[4px]"></i>
+                                    <a href="{{route('knjiga.index')}}" >Poništi <i class="fas fa-times ml-[4px]"></i> </a>
                                 </button>
                                 <button id="izdajKnjigu" type="submit"
                                     class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]"

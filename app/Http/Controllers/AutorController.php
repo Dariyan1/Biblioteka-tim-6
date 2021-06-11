@@ -14,8 +14,8 @@ class AutorController extends Controller
      */
     public function index()
     {
-        $autori=Autor::all();
-        return view('autor.index',['autori'=>$autori]);
+        $autori = Autor::all();
+        return view('autor.index', ['autori'=>$autori]);
     }
 
     /**
@@ -36,19 +36,11 @@ class AutorController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-        'imePrezimeAutor'=>'required',
-        'opis_autor'=>'required'
-        ]);
-        $autor=new Autor();
-        $autor->ImePrezime=$request->imePrezimeAutor;
-        $autor->Biografija=$request->opis_autor;
-        $autor=$autor->save();
-        if($autor){
-         return redirect()->route('autor.index')->with('success','Autor je uspjesno dodat');
-        }else{
-         return redirect()->route('autor.index')->with('fail','Autor nije uspjesno dodat');
-        }
+        $autori = new Autor();
+        $autori->ImePrezime = $request->input('ImePrezime');
+        $autori->Biografija = $request->input('Biografija');
+        $autori->save();
+        return redirect()->route('autor.store');
     }
 
     /**
@@ -59,8 +51,7 @@ class AutorController extends Controller
      */
     public function show(Autor $autor)
     {
-        $autor=Autor::findOrFail($autor->id);
-        return view('autor.show',['autor'=>$autor]);
+        return view('autor.show', ['autor'=>$autor]);
     }
 
     /**
@@ -71,8 +62,7 @@ class AutorController extends Controller
      */
     public function edit(Autor $autor)
     {
-        $autor=Autor::findOrFail($autor->id);
-        return view('autor.edit',['autor'=>$autor]);
+        return view('autor.edit', ['autor'=>$autor]);
     }
 
     /**
@@ -84,20 +74,10 @@ class AutorController extends Controller
      */
     public function update(Request $request, Autor $autor)
     {
-        $request->validate([
-            'imePrezimeAutorEdit'=>'required',
-            'opis_autor_edit'=>'required'
-            ]);
-            $autor=Autor::where('id',$autor->id)->update([
-            'ImePrezime'=>$request->imePrezimeAutorEdit,
-            'Biografija'=>$request->opis_autor_edit
-            ]);
-            
-            if($autor){
-             return redirect()->route('autor.index')->with('success','Autor je uspjesno azuriran');
-            }else{
-             return redirect()->route('autor.index')->with('fail','Autor nije uspjesno azuriran');
-            }
+        $autor->ImePrezime=$request->input('ImePrezime');
+        $autor->Biografija=$request->input('Biografija');
+        $autor->save();
+        return redirect()->route('autor.index');
     }
 
     /**
@@ -108,11 +88,7 @@ class AutorController extends Controller
      */
     public function destroy(Autor $autor)
     {
-        $autor=Autor::where('id',$autor->id)->delete();
-        if($autor){
-            return redirect()->route('autor.index')->with('success','Autor je uspjesno obrisan');
-           }else{
-            return redirect()->route('autor.index')->with('fail','Autor nije uspjesno obrisan');
-           }
+        $autor->delete();
+        return redirect()->route('autor.index');
     }
 }

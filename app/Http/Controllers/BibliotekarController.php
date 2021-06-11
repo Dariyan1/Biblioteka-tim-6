@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Bibliotekar;
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Tipkorisnika;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
 class BibliotekarController extends Controller
 {
     /**
@@ -15,10 +16,18 @@ class BibliotekarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $idb=Tipkorisnika::where('Naziv','Bibliotekar')->first()->id;
-        $bib=User::where('tipkorisnika_id',$idb)->get();
-        return view('bibliotekar.index',compact('bib'));
+    {
+        
+        
+            $bib= User::all()->where('tipkorisnika_id', '1');
+            return view('bibliotekar.index' ,compact('bib'));
+  /*$bib=[];
+               if(Tipkorisnika::where('Naziv', 'Bibliotekar')->first()) {
+                         $idb=Tipkorisnika::where('Naziv', 'Bibliotekar')->first()->id;
+                         $bib=User::where('tipkorisnika_id', $idb)->get();
+                }
+         return view('bibliotekar.index', ['bib'=>$bib]);*/
+    
     }
 
     /**
@@ -29,7 +38,7 @@ class BibliotekarController extends Controller
     public function create()
     {
         $tip=Tipkorisnika::all();
-        return view('bibliotekar.create',compact('tip'));
+        return view('bibliotekar.create', ['tip'=>$tip]);
     }
 
     /**
@@ -41,29 +50,39 @@ class BibliotekarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'imePrezimeBibliotekar'=>'required',
-        'jmbgBibliotekar'=>'required|max:13|min:13',
-        'emailBibliotekar'=>'required|email',
-        'usernameBibliotekar'=>'required',
-        'pwBibliotekar'=>'required_with:pw2Bibliotekar|same:pw2Bibliotekar|min:8',
-        'pw2Bibliotekar'=>'min:8',
-        'tip_korisnika'=>'required'
+            'imePrezimeBibliotekar' => 'required',
+            'jmbgBibliotekar' => 'required',
+            'emailBibliotekar' => 'required',
+            'usernameBibliotekar' => 'required',
+            'pwBibliotekar' => 'required',
+            'pw2Bibliotekar' => 'required'
         ]);
+
         $bibliotekar=new User;
         $bibliotekar->ImePrezime=$request->imePrezimeBibliotekar;
         $bibliotekar->JMBG=$request->jmbgBibliotekar;
-        $bibliotekar->Email=$request->emailBibliotekar;
-        $bibliotekar->KorisnickoIme=$request->usernameBibliotekar;
-        $bibliotekar->password=Hash::make($request->pwBibliotekar);
+        $bibliotekar->email=$request->emailBibliotekar;
+        $bibliotekar->name=$request->usernameBibliotekar;
+        // $bibliotekar->password=Hash::make($request->pwBibliotekar);
+        $bibliotekar->password=$request->pwBibliotekar;
         $bibliotekar->tipkorisnika_id=$request->tip_korisnika;
-        $bibliotekar=$bibliotekar->save();
-        if($bibliotekar){
-          return redirect()->route('bibliotekar.index')->with('success','Bibliotekar je uspjesno dodat');
-        }else{
-          return redirect()->route('bibliotekar.index')->with('fail','Bibliotekar nije uspjesno dodat');
-        }
 
-    
+        //slika
+        $request->validate([
+            'foto'=>'nullable|image|max:2048'
+        ]);
+
+        if ($request->file('foto')) {
+            $file = $request->file('foto')/*->crop(100 , 100 , 25 ,25)*/;
+            $path = "/img/slikeKorisnici/slike-bibliotekari/{$file->getClientOriginalName()}" ;
+            $request->foto->move(public_path('storage').'/img/slikeKorisnici/slike-bibliotekari/', $file->getClientOriginalName());
+             /*public_path('storage')."/img/slikeKorisnici/slike-bibliotekari", $file->getClientOriginalName());*/
+            $bibliotekar->Foto=$path;
+        }
+        
+
+        $bibliotekar->save();
+        return redirect()->route('bibliotekar.index');
     }
 
     /**
@@ -74,9 +93,9 @@ class BibliotekarController extends Controller
      */
     public function show(User $bibliotekar)
     {
-        $bibliotekar=User::where('id',$bibliotekar->id)->first();
+        $bibliotekar=User::where('id', $bibliotekar->id)->first();
     
-        return view('bibliotekar.show',compact('bibliotekar'));
+        return view('bibliotekar.show', ['b'=>$bibliotekar]);
     }
 
     /**
@@ -87,9 +106,10 @@ class BibliotekarController extends Controller
      */
     public function edit(User $bibliotekar)
     {
-        $bibliotekar=User::where('id',$bibliotekar->id)->first();
+        $bibliotekar=User::where('id', $bibliotekar->id)->first();
         $tip=Tipkorisnika::all();
-        return view('bibliotekar.edit',['bibliotekar'=>$bibliotekar,'tip'=>$tip]);
+        
+        return view('bibliotekar.edit', ['b'=>$bibliotekar,'tip'=>$tip]);
     }
 
     /**
@@ -99,31 +119,44 @@ class BibliotekarController extends Controller
      * @param  \App\Models\Bibliotekar  $bibliotekar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $bibliotekar)
+    public function update(Request $request, Bibliotekar $bibliotekar)
     {
+
+
         $request->validate([
-            'imePrezimeBibliotekarEdit'=>'required',
-            'jmbgBibliotekarEdit'=>'required|max:13',
-            'emailBibliotekarEdit'=>'required|email',
-            'usernameBibliotekarEdit'=>'required',
-            'pwBibliotekarEdit'=>'required_with:pw2BibliotekarEdit|same:pw2BibliotekarEdit|min:8',
-            'pw2BibliotekarEdit'=>'min:8',
-            'tip_korisnika'=>'required'
-            ]);
-            $bibliotekar=User::find($bibliotekar->id);
-            $bibliotekar->ImePrezime=$request->imePrezimeBibliotekarEdit;
-            $bibliotekar->JMBG=$request->jmbgBibliotekarEdit;
-            $bibliotekar->email=$request->emailBibliotekarEdit;
-            $bibliotekar->KorisnickoIme=$request->usernameBibliotekarEdit;
-            $bibliotekar->password=Hash::make($request->pwBibliotekarEdit);
-            $bibliotekar->tipkorisnika_id=$request->tip_korisnika;
-            $bibliotekar1=$bibliotekar->save();
-            if($bibliotekar1){
-              return redirect()->route('bibliotekar.index')->with('success','Bibliotekar je uspjesno azuriran');
-            }else{
-              return redirect()->route('bibliotekar.index')->with('fail','Bibliotekar nije uspjesno azuriran');
-            }
+            'imePrezimeBibliotekarEdit' => 'required',
+            'jmbgBibliotekarEdit' => 'required',
+            'emailBibliotekarEdit' => 'required',
+            'usernameBibliotekarEdit' => 'required',
+            'pwBibliotekarEdit' => 'required',
+            'pw2BibliotekarEdit' => 'required'
+        ]);
+
+
+        $bibliotekar=User::where('id', $bibliotekar->id)->first();
+        $bibliotekar->ImePrezime=$request->imePrezimeBibliotekarEdit;
+        $bibliotekar->JMBG=$request->jmbgBibliotekarEdit;
+        $bibliotekar->email=$request->emailBibliotekarEdit;
+        $bibliotekar->name=$request->usernameBibliotekarEdit;
+        $bibliotekar->password=$request->pwBibliotekarEdit;
+        $bibliotekar->tipkorisnika_id=$request->tip_korisnika;
+
+        //files
     
+        $request->validate([
+            'foto'=>'nullable|image|max:2048'
+        ]);
+
+        if ($request->file('foto')) {
+            $file = $request->file('foto')/*->crop(100,100,25,25)*/;
+            $newpath = "/img/slikeKorisnici/slike-bibliotekari/{$file->getClientOriginalName()}" ;
+            $request->foto->move(public_path('storage').'/img/slikeKorisnici/slike-bibliotekari/', $file->getClientOriginalName());
+            $bibliotekar->Foto=$newpath;
+        }
+        
+//dd($request->foto);
+        $bibliotekar->save();
+        return redirect()->route('bibliotekar.index')->with('Success', 'Promijenjen bibliotekar');
     }
 
     /**
@@ -132,14 +165,9 @@ class BibliotekarController extends Controller
      * @param  \App\Models\Bibliotekar  $bibliotekar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $bibliotekar)
+    public function destroy(Bibliotekar $bibliotekar)
     {
-        $bibliotekar=User::where('id',$bibliotekar->id)->delete();
-        if($bibliotekar){
-            return redirect()->route('bibliotekar.index')->with('success','Bibliotekar je uspjesno obrisan');
-          }else{
-            return redirect()->route('bibliotekar.index')->with('fail','Bibliotekar nije uspjesno obrisan');
-          }
-  
+        $bibliotekar=Bibliotekar::where('id', $bibliotekar->id)->delete();
+        return redirect()->route('bibliotekar.index');
     }
 }

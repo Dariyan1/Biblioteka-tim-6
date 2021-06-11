@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
+    public function index(){
+    return redirect()->route('passwords.auth.reset');
+    }
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
@@ -26,5 +29,6 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/login';
+
 }

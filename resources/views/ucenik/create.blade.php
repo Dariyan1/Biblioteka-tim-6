@@ -1,14 +1,15 @@
 @extends('layouts.layout')
+
+
 @section('content')
-     <!-- Content -->
-     <section class="w-screen h-screen pl-[80px] pb-4 text-gray-700">
+<section class="w-screen h-screen pl-[80px] pb-4 text-gray-700">
             <!-- Heading of content -->
             <div class="heading">
                 <div class="flex border-b-[1px] border-[#e4dfdf]">
                     <div class="pl-[30px] py-[10px] flex flex-col">
                         <div>
                             <h1 class="">
-                                Novi ucenik
+                                Novi Učenik
                             </h1>
                         </div>
                         <div>
@@ -16,15 +17,15 @@
                                 <ol class="flex list-reset">
                                     <li>
                                         <a href="{{route('ucenik.index')}}" class="text-[#2196f3] hover:text-blue-600">
-                                            Svi ucenici
+                                            Svi Učenici
                                         </a>
                                     </li>
                                     <li>
                                         <span class="mx-2">/</span>
                                     </li>
                                     <li>
-                                        <a href="#" class="text-gray-400 hover:text-blue-600">
-                                            Novi ucenik
+                                        <a href="/ucenik/create" class="text-gray-400 hover:text-blue-600">
+                                            Novi Učenik
                                         </a>
                                     </li>
                                 </ol>
@@ -35,74 +36,65 @@
             </div>
             <!-- Space for content -->
             <div class="scroll height-content section-content">
-                <form method="post" action="{{route('ucenik.store')}}" class="text-gray-700 text-[14px] forma">
-                   @csrf 
-                   @method('POST')
+                <form method="post" action="{{route('ucenik.store')}}" class="text-gray-700 text-[14px] forma" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
                     <div class="flex flex-row ml-[30px]">
                         <div class="w-[50%] mb-[100px]">
                             <div class="mt-[20px]">
                                 <span>Ime i prezime <span class="text-red-500">*</span></span>
-                                <input type="text" name="imePrezimeUcenik" id="imePrezimeUcenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsNameUcenik()"/>
-                                <div class="fail" id="validateNameUcenik">
-                                @error('imePrezimeUcenik')@php echo "Ime i prezime ucenika je obavezno polje"; @endphp @enderror
-                                </div>
+                                <input type="text" value="{{old('imePrezimeUcenik')}}" name="imePrezimeUcenik" id="imePrezimeUcenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsNameUcenik()"/>
+                                <div class="fail" id="validateNameUcenik"> @error('imePrezimeUcenik') Morate unijeti Ime i Prezime @enderror  </div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>Tip korisnika</span>
-                                <select  class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="tip_korisnika">
-                                  <option></option>
-                                  @foreach($tip as $t)
-                                    <option selected=@php if($t->Naziv=='Ucenik') {echo "selected";} @endphp value="{{$t->id}}">
+                                <select class="flex w-[90%] mt-2 px-2 py-2 border bg-gray-300 border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#576cdf]" name="tip_korisnika" >
+                                 <!-- Druga opcija
+                                     @foreach($tip as $t)
+                                    <option value="{{$t->id}}">
                                         {{$t->Naziv}}
                                     </option>
-                                    @endforeach
+                                    @endforeach -->
+                                    <option value="2"> 
+                                        Učenik
+                                    </option>
                                 </select>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>JMBG <span class="text-red-500">*</span></span>
-                                <input type="text" name="jmbgUcenik" id="jmbgUcenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsJmbgUcenik()"/>
-                                <div class="fail" id="validateJmbgUcenik">
-                                @error('jmbgUcenik')@php echo "Jmbg ucenika je obavezno polje"; @endphp @enderror
-                              </div>
+                                <input type="text" name="jmbgUcenik" id="jmbgUcenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" />
+                                
+                                <div class="fail" id="validateJmbgUcenik"> @error('jmbgUcenik') Morate unijeti JMBG @enderror  </div>
                             </div>
 
                             <div class="mt-[20px]">
                                 <span>E-mail <span class="text-red-500">*</span></span>
                                 <input type="email" name="emailUcenik" id="emailUcenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsEmailUcenik()"/>
-                                <div class="fail" id="validateEmailUcenik">
-                                @error('emailUcenik')@php echo "Email ucenika je obavezno polje"; @endphp @enderror
-                             
-                             </div>
+                               
+                                <div class="fail" id="validateEmailUcenik"> @error('emailUcenik') Morate unijeti email @enderror </div>
                             </div>
 
                             <div class="mt-[20px]">
-                                <span>Korisnicko ime <span class="text-red-500">*</span></span>
+                                <span>Korisničko ime <span class="text-red-500">*</span></span>
                                 <input type="text" name="usernameUcenik" id="usernameUcenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsUsernameUcenik()"/>
-                                <div class="fail" id="validateUsernameUcenik">
-                                @error('usernameUcenik')@php echo "Username ucenika je obavezno polje"; @endphp @enderror
-                             
-                             </div>
-                            </div>
-
-                            <div class="mt-[20px]">
-                                <span>Sifra <span class="text-red-500">*</span></span>
-                                <input type="password" name="pwUcenik" id="pwUcenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPwUcenik()"/>
-                                <div class="fail" id="validatePwUcenik">
-                                 @error('pwUcenik')@php echo "Sifra ucenika je obavezno polje"; @endphp @enderror
-                             
-                             </div>
-                            </div>
-
-                            <div class="mt-[20px]">
-                                <span>Ponovi sifru <span class="text-red-500">*</span></span>
-                                <input type="password" name="pw2Ucenik" id="pw2Ucenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPw2Ucenik()"/>
-                                <div class="fail" id="validatePw2Ucenik">
-                                @error('pw2Ucenik')@php echo "Poniovljena sifra se mora poklapati i obavezno je polje"; @endphp @enderror
-                             
                                 
-                                </div>
+                                <div class="fail" id="validateUsernameUcenik"> @error('usernameUcenik') Morate unijeti username @enderror </div>
+                            </div>
+
+                            <div class="mt-[20px]">
+                                <span>Šifra <span class="text-red-500">*</span></span>
+                                <input type="password" name="pwUcenik" id="pwUcenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPwUcenik()"/>
+                                
+                                <div class="fail" id="validatePwUcenik"> @error('pwUcenik') Morate unijeti sifru @enderror </div>
+                            </div>
+
+                            <div class="mt-[20px]">
+                                <span>Ponovi šifru <span class="text-red-500">*</span></span>
+                                <input type="password" name="pw2Ucenik" id="pw2Ucenik" class="flex w-[90%] mt-2 px-2 py-2 text-base bg-white border border-gray-300 shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#576cdf]" onkeydown="clearErrorsPw2Ucenik()"/>
+                                 
+                                <div class="fail" id="validatePw2Ucenik"> @error('pw2Ucenik') Morate unijeti ponovo sifru @enderror </div>
                             </div>
                         </div>
 
@@ -116,7 +108,7 @@
                                             <polyline points="21 15 16 10 5 21"></polyline>
                                         </svg>
                                         <span class="px-4 py-2 mt-2 leading-normal">Add photo</span>
-                                        <input type='file' class="hidden" :accept="accept" onchange="loadFileStudent(event)" />
+                                        <input type='file' class="hidden" :accept="accept" name="foto" onchange="loadFileStudent(event)" />
                                     </div>
                                     <img id="image-output-student" class="hidden absolute w-48 h-[188px] bottom-0" />	
                                 </div>
@@ -127,13 +119,13 @@
                     <div class="absolute bottom-0 w-full">
                         <div class="flex flex-row">
                             <div class="inline-block w-full text-right py-[7px] mr-[100px] text-white">
-                                <button type="reset"
+                                <button type="button" 
                                         class="btn-animation shadow-lg mr-[15px] w-[150px] focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in bg-[#F44336] hover:bg-[#F55549] rounded-[5px]">
-                                            Ponisti <i class="fas fa-times ml-[4px]"></i> 
+                                            <a href="{{route('ucenik.index')}}" >Poništi <i class="fas fa-times ml-[4px]"></i> </a>
                                 </button>
                                 <button id="sacuvajUcenika" type="submit"
-                                        class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]">
-                                            Sacuvaj <i class="fas fa-check ml-[4px]"></i> 
+                                        class="btn-animation shadow-lg w-[150px] disabled:opacity-50 focus:outline-none text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] hover:bg-[#46A149] bg-[#4CAF50]" >
+                                            Sačuvaj <i class="fas fa-check ml-[4px]"></i> 
                                 </button>
                             </div>
                         </div>        
@@ -142,5 +134,6 @@
                 </form>
             </div>
         </section>
-        <!-- End Content -->
+
+
 @endsection

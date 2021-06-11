@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 @section('content')
-  <!-- Content -->
-  <section class="w-screen h-screen pl-[80px] py-4 text-gray-700">
+
+<!-- Content -->
+<section class="w-screen h-screen pl-[80px] py-4 text-gray-700">
             <!-- Heading of content -->
             <div class="heading mt-[7px]">
                 <div class="border-b-[1px] border-[#e4dfdf]">
@@ -13,18 +14,6 @@
                 </div>
             </div>
             <div class="height-autori pb-[30px] scroll">
-            @if(@session('success'))
-            <div class="bg-blue-100 mssg border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-                <p class="font-bold items-center">{{session('success')}}</p>
-               
-            </div>
-            @endif
-            @if(@session('fail'))
-            <div class="bg-blue-100 fail border-t flex items-center border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-                <p class="font-bold items-center">{{session('fail')}}</p>
-               
-            </div>
-            @endif
                 <div class="flex items-center px-[30px] py-4 space-x-3 rounded-lg justify-between">
                     <a href="{{route('autor.create')}}"
                         class="btn-animation inline-flex items-center text-sm py-2.5 px-5 transition duration-300 ease-in rounded-[5px] tracking-wider text-white bg-[#3f51b5] rounded hover:bg-[#4558BE]">
@@ -51,6 +40,7 @@
                     class="inline-block min-w-full px-[30px] pt-3 align-middle bg-white rounded-bl-lg rounded-br-lg shadow-dashboard">
                     <table class="min-w-full shadow-lg" id="myTable">
                         <thead class="bg-[#EFF3F6]">
+                        
                             <tr class="border-b-[1px] border-[#e4dfdf]">
                                 <th class="px-4 py-4 leading-4 tracking-wider text-left text-blue-500">
                                     <label class="inline-flex items-center">
@@ -63,9 +53,11 @@
                                 <th class="px-4 py-4 text-sm leading-4 tracking-wider text-left">Opis</th>
                                 <th class="px-4 py-4"> </th>
                             </tr>
+                       
                         </thead>
+                        
                         <tbody class="bg-white">
-                        @foreach($autori as $autor)
+                        @foreach($autori as $a)
                             <tr class="hover:bg-gray-200 hover:shadow-md border-b-[1px] border-[#e4dfdf]">
                                 <td class="px-4 py-3 whitespace-no-wrap">
                                     <label class="inline-flex items-center">
@@ -73,16 +65,13 @@
                                     </label>
                                 </td>
                                 <td class="flex flex-row items-center px-4 py-3">
-                                    <img class="object-cover w-8 mr-2 h-11" src="img/profileStudent.jpg" alt="" />
-                                    <a href="{{route('autor.show',$autor)}}">
-                                        <span class="mr-2 font-medium text-center">{{$autor->ImePrezime}}</span>
+                                    <a href="autorProfile.php">
+                                        <span class="mr-2 font-medium text-center">{{$a->ImePrezime}}</span>
                                     </a>
                                 </td>
                                 </td>
-                                <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">
-                                {{$autor->Biografija}}
-                                </td>
-                                 <td class="px-4 py-3 text-sm leading-5 text-right whitespace-no-wrap">
+                                <td class="px-4 py-3 text-sm leading-5 whitespace-no-wrap">{!!$a->Biografija!!}</td>
+                                <td class="px-4 py-3 text-sm leading-5 text-right whitespace-no-wrap">
                                     <p class="inline cursor-pointer text-[20px] py-[10px] px-[30px] border-gray-300 dotsAutori hover:text-[#606FC7]">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </p>
@@ -91,33 +80,33 @@
                                         <div class="absolute right-[25px] w-56 mt-[7px] origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
                                             aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                             <div class="py-1">
-                                                <a href="{{route('autor.show',$autor->id)}}" tabindex="0"
+                                                <a href="{{route('autor.show',$a)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="far fa-file mr-[5px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Pogledaj detalje</span>
                                                 </a>
-                                                <a href="{{route('autor.edit',$autor->id)}}" tabindex="0"
+                                                <a href="{{route('autor.edit',$a)}}" tabindex="0"
                                                     class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                                     role="menuitem">
                                                     <i class="fas fa-edit mr-[1px] ml-[5px] py-1"></i>
                                                     <span class="px-4 py-0">Izmijeni autora</span>
                                                 </a>
-                                                <form action="{{route('autor.destroy',$autor->id)}}" method="post" tabindex="0"
-                                                   
-                                                    class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
-                                                    role="menuitem">
-                                                    @csrf 
+                                                <form method="post" action="{{route('autor.destroy',$a)}}" >
+                                                    @csrf
                                                     @method('DELETE')
+                                                    <button type="submit" class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
+                                                    role="menuitem">
                                                     <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                                    <button type="submit"><span class="px-4 py-0">Izbrisi autora</span></button>
+                                                    <span class="px-4 py-0">Izbriši autora</span>
+                                                    </button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                            @endforeach
                         </tbody>
                     </table>
 
@@ -187,4 +176,5 @@
 
         </section>
         <!-- End Content -->
+
 @endsection

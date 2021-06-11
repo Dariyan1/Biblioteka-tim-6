@@ -72,7 +72,7 @@
                                         class="flex w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 outline-none hover:text-blue-600"
                                         role="menuitem">
                                         <i class="fa fa-trash mr-[5px] ml-[5px] py-1"></i>
-                                        <span class="px-4 py-0">Izbrisi knjigu</span>
+                                        <span class="px-4 py-0">Izbriši knjigu</span>
                                     </a>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                         <a href="{{route('knjiga.spec',$knjiga)}}" class="inline ml-[70px] active-book-nav hover:text-blue-800">
                             Specifikacija
                         </a>
-                        <a href="{{route('knjiga.iznajmljena',$knjiga)}}" class="inline ml-[70px] hover:text-blue-800">
+                        <a href="iznajmljivanjeIzdate.php" class="inline ml-[70px] hover:text-blue-800">
                             Evidencija iznajmljivanja
                         </a>
                         <a href="evidencijaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">

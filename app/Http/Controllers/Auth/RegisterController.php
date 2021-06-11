@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use App\Models\Korisnik;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,9 +29,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-    protected $table="users";
-    protected $guarded=['JMBG','Foto'];
+    protected $redirectTo = '/home';
+
     /**
      * Create a new controller instance.
      *
@@ -53,10 +51,8 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'kname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:korisniks'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'tk'=>['required','string']
         ]);
     }
 
@@ -64,16 +60,15 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\Korisnik
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
         return User::create([
-            'tipkorisnika_id'=>$data['tk'],
-            'KorisnickoIme'=>$data['kname'],
-            'ImePrezime' => $data['name'],
-            'Email' => $data['email'],
-            'password' => Hash::make($data['password'])
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
         ]);
     }
+    // Hash::make($request->password);
 }

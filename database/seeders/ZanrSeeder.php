@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ZanrSeeder extends Seeder
 {
@@ -13,6 +14,9 @@ class ZanrSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('zanrovis')->insert([
+            'Naziv' => 'Pripovjetka']);
+            DB::table('zanrovis')->insert([
+                'Naziv' => 'Roman']);
     }
 }
