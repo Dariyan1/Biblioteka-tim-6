@@ -112,9 +112,9 @@ Route::get('vracanje/{knjiga}',[KnjigaController::class,'vracanje'])->name('knji
 Route::post('vrati/{knjiga}',[KnjigaController::class,'vrati'])->name('knjiga.vrati');
 Route::get('otpisivanje/{knjiga}',[KnjigaController::class,'otpisivanje'])->name('knjiga.otpisivanje');
 Route::post('otpisati/{knjiga}',[KnjigaController::class,'otpisati'])->name('knjiga.votpisai');
-
-
-
+Route::get('spec/{knjiga}', [KnjigaController::class,'spec'])->name('knjiga.spec');
+Route::get('multimedija/{knjiga}', [KnjigaController::class,'multimedijashow'])->name('knjiga.multimedijashow');
+Route::get('izdavanjaKnjige',[KnjigaController::class, 'izdavanjaKnjige'])->name('knjiga.izdavanjaKnjige');
  });
 
 

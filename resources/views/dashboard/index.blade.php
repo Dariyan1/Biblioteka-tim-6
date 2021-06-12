@@ -173,7 +173,7 @@
                             </h3>
                             <div class="text-right">
                                 <div class="flex pb-[30px]">
-                                    <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="izdateKnjige.php">
+                                    <a class="w-[145px] text-[#2196f3] hover:text-blue-600" href="{{route('knjiga.izdavanjaKnjige')}}">
                                         Izdate knjige
                                     </a>
                                     <div class="ml-[30px] bg-green-600 transition duration-200 ease-in  hover:bg-green-900 stats-bar-green h-[26px]">

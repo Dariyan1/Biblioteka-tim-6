@@ -86,13 +86,13 @@
                         <a href="{{route('knjiga.show',$knjiga->id)}}" class="inline active-book-nav hover:text-blue-800">
                             Osnovni detalji
                         </a>
-                        <a href="" class="inline ml-[70px] hover:text-blue-800 ">
+                        <a href="{{route('knjiga.spec',$knjiga->id)}}" class="inline ml-[70px] hover:text-blue-800 ">
                             Specifikacija
                         </a>
                         <a href="iznajmljivanjeIzdate.php" class="inline ml-[70px] hover:text-blue-800">
                             Evidencija iznajmljivanja
                         </a>
-                        <a href="evidencijaKnjigaMultimedija.php" class="inline ml-[70px] hover:text-blue-800">
+                        <a href="{{route('knjiga.multimedijashow',$knjiga->id)}}" class="inline ml-[70px] hover:text-blue-800">
                             Multimedija
                         </a>
                     </div>
@@ -140,7 +140,7 @@
                                             Storyline (Kratki sadrzaj)
                                         </h4>
                                         <p class="addReadMore showlesscontent my-[10px]">
-                                            {{$knjiga->Sadrzaj}}
+                                            {!!$knjiga->Sadrzaj!!}
                                         </p>
                                     </div>
                                 </div>

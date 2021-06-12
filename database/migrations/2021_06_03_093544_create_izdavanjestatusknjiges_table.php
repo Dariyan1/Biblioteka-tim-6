@@ -17,7 +17,7 @@ class CreateIzdavanjestatusknjigesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('izdavanje_id');
             $table->unsignedBigInteger('statusknjige_id');
-            $table->date('datum')->default(DB::raw('CURRENT_TIMESTAMP'));;
+            $table->dateTime('datum')->default(DB::raw('CURRENT_TIMESTAMP'));;
             $table->foreign('izdavanje_id')->references('id')->on('izdavanjes')->onDelete('cascade');
             $table->foreign('statusknjige_id')->references('id')->on('statusknjiges')->onDelete('cascade');
             $table->timestamps();

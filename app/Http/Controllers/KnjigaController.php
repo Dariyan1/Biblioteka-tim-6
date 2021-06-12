@@ -19,6 +19,7 @@ use App\Models\Rezervacija;
 use App\Models\Statusknjige;
 use App\Models\Izdavanjestatusknjige;
 Use App\Models\User;
+use App\Models\Rzrezervacije;
 use App\Models\Izdavanje;
 use Illuminate\Support\Facades\DB;
 
@@ -110,27 +111,56 @@ class KnjigaController extends Controller
          'format'=>'required',
          'povez'=>'required',
          'pismo'=>'required',
-         'isbn'=>'required|min:20|max:20'
+         'isbn'=>'required|min:20|max:20',
+         
         ]);
         
         $autori=explode(',', $request->autori);
         $zanri=explode(',', $request->zanrovi);
         $kategorije=explode(',', $request->kategorije);
-        $knjiga=Knjiga::create([
+    /*    $knjiga=new Knjiga([
             'Naslov'=>$request->nazivKnjiga,
             'izdavac_id'=>$request->izdavac,
             'pismo_id'=>$request->pismo,
-            'jezik_id'=>$request->izdavac,
+            'jezik_id'=>$request->jezik,
             'format_id'=>$request->format,
             'povez_id'=>$request->povez,
             'BrojStrana'=>$request->brStrana,
             'DatumIzdavanja'=>$request->godina,
             'UkupnoPrimjeraka'=>$request->knjigaKolicina,
             'Sadrzaj'=>$request->kratki_sadrzaj,
-            'ISBN'=>$request->isbn
-           ]);
-          
-       
+            'ISBN'=>$request->isbn,
+            
+           ]);   
+           //slika
+  /*      $request->validate([
+            'foto'=>'nullable|image|max:2048'
+        ]);*/
+
+
+        $knjiga= new Knjiga;
+       $knjiga->Naslov=$request->nazivKnjiga;
+       $knjiga->izdavac_id=$request->izdavac;
+       $knjiga->pismo_id=$request->pismo;
+       $knjiga->jezik_id=$request->jezik;
+       $knjiga->format_id=$request->format;
+       $knjiga->povez_id=$request->povez;
+       $knjiga->BrojStrana=$request->brStrana;
+       $knjiga->DatumIzdavanja=$request->godina;
+       $knjiga->UkupnoPrimjeraka=$request->knjigaKolicina;
+       $knjiga->Sadrzaj=$request->kratki_sadrzaj;
+       $knjiga->ISBN=$request->isbn;
+       // dd($request->file('foto')); 
+        if ($request->file('foto')) {
+            $file = $request->file('foto')/*->crop(100 , 100 , 25 ,25)*/;
+            $path = "/img/slikeKnjiga/{$file->getClientOriginalName()}" ;
+            $request->foto->move(public_path('storage').'/img/slikeKnjiga', $file->getClientOriginalName());
+             /*public_path('storage')."/img/slikeKorisnici/slike-bibliotekari", $file->getClientOriginalName());*/
+            $knjiga->Foto=$path;
+        }
+        $knjiga->save();
+
+
            $knjiga->autors()->attach($autori);
         
      
@@ -156,11 +186,19 @@ class KnjigaController extends Controller
         $knjiga=Knjiga::with('autors', 'zanrovis', 'kategorijes')->where('id', $knjiga->id)->first();
         return view('knjiga.show', compact('knjiga'));
     }
+
     public function spec(Knjiga $knjiga)
     {
         $knjiga=Knjiga::with('autors', 'zanrovis', 'kategorijes')->where('id', $knjiga->id)->first();
     
         return view('knjiga.spec', compact('knjiga'));
+    }
+
+    public function multimedijashow(Knjiga $knjiga)
+    {
+        $knjiga=Knjiga::where('id', $knjiga->id)->first();
+    
+        return view('knjiga.multimedijashow', compact('knjiga'));
     }
 
     /**
@@ -324,9 +362,9 @@ class KnjigaController extends Controller
      ]);
       $rezervacija=Rezervacija::create([
       'knjiga_id'=>$knjiga->id,
-      'rezervisaokorisnik_id'=>1,                  //$request->izdao,
+      'rezervisaokorisnik_id'=>$request->user()->id,                  //$request->izdao,
       'zakorisnik_id'=>$request->ucenik,
-      'razlogzatvaranja_id'=>4,
+      'razlogzatvaranja_id'=>Rzrezervacije::where('Naziv', 'Rezervisana')->first()->id,
       'datumpodnosenja'=>$request->datumRezervisanja,
       'datumrezervacije'=>$request->datumRezervisanja,
       'datumzatvaranja'=>$request->datumRezervisanja
@@ -417,5 +455,12 @@ class KnjigaController extends Controller
                 return redirect()->route('knjiga.index')->with('success','Knjiga(e) uspjesno vracen(a)e');
             }
             return redirect()->route('knjiga.index')->with('fail','Knjiga(e) nije uspjesno vracen(a)e');           
-    }
+ 
+        }
+        public function izdavanjaKnjige(){
+            $knjiga=new Knjiga;
+            return view('knjiga.izdavanjaKnjige', ['knjiga'=>$knjiga]);
+      
+        }
+      
 }

@@ -17,6 +17,7 @@ class CreateKnjigasTable extends Migration
             $table->id();
             $table->string('Naslov');
             $table->integer('BrojStrana');
+            $table->string('Foto')->nullable();
             $table->unsignedBigInteger('pismo_id');
             $table->unsignedBigInteger('jezik_id');
             $table->unsignedBigInteger('povez_id');

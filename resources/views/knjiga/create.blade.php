@@ -7,7 +7,7 @@
                     <div class="pl-[30px] py-[10px] flex flex-col">
                         <div>
                             <h1>
-                                Izmijeni podatke
+                                Nova knjiga
                             </h1>
                         </div>
                         <div>
@@ -23,7 +23,7 @@
                                     </li>
                                     <li>
                                         <a href="#" class="text-gray-400 hover:text-blue-600">
-                                            Izmijeni podatke
+                                            Nova knjiga
                                         </a>
                                     </li>
                                 </ol>
@@ -506,7 +506,7 @@
                             class="relative flex flex-col p-4 text-gray-400 border border-gray-200 rounded">
                             <div x-ref="dnd"
                                 class="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer">
-                                <input accept="*" type="file" multiple
+                                <input accept="*" name="foto" type="file" multiple
                                     class="absolute inset-0 z-50 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
                                     @change="addFiles($event)"
                                     @dragover="$refs.dnd.classList.add('border-blue-400'); $refs.dnd.classList.add('ring-4'); $refs.dnd.classList.add('ring-inset');"

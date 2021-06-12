@@ -9,6 +9,9 @@ class Izdavanje extends Model
 {
     use HasFactory;
     protected $guarded=[];
+    public function book(){
+        return $this->hasOne(Knjiga::class);
+    }
     public function statusknjiges(){
         return $this->belongsToMany(Statusknjige::class,'izdavanjestatusknjiges','izdavanje_id','statusknjige_id');
     }
@@ -85,4 +88,5 @@ class Izdavanje extends Model
         return ($dana-30).' dana ';
        
     }
+ 
 }

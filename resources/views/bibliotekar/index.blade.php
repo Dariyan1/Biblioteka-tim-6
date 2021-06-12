@@ -65,8 +65,7 @@
                                 -->
                                   <img class="object-cover w-8 h-8 mr-2 rounded-full" src="@if($b->Foto){{ url('storage'.$b->Foto) }}@else /img/defaultusericon.jpg @endif" alt="None" title="Slika"/>
                                   
-                                  <span class="font-medium text-center">{{ url('storage'.$b->Foto) }} </span><>
-                                 <span class="font-medium text-center">{{ asset('/storage' . $b->Foto) }} </span>
+                                
                                     
                                     <a href="{{route('bibliotekar.show',$b->id)}}">
                                         <span class="font-medium text-center">{{$b->ImePrezime}}</span>
